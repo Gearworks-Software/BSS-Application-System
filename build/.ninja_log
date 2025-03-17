@@ -1,0 +1,19 @@
+# ninja log v6
+7	607	7639107172457268	LoginForm_autogen/timestamp	ba95c37a2b1f8ec2
+7	607	7639107172457268	LoginForm_autogen/mocs_compilation.cpp	ba95c37a2b1f8ec2
+7	607	7639107172457268	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/LoginForm_autogen/timestamp	ba95c37a2b1f8ec2
+7	607	7639107172457268	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/LoginForm_autogen/mocs_compilation.cpp	ba95c37a2b1f8ec2
+614	3250	7639107173210042	CMakeFiles/LoginForm.dir/LoginForm_autogen/mocs_compilation.cpp.obj	4436df7f0ce49b12
+618	3272	7639107173250032	CMakeFiles/LoginForm.dir/main.cpp.obj	ed7aeafe99fad51a
+28	154	7639108678439878	LoginForm_autogen/timestamp	ba95c37a2b1f8ec2
+28	154	7639108678439878	LoginForm_autogen/mocs_compilation.cpp	ba95c37a2b1f8ec2
+28	154	7639108678439878	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/LoginForm_autogen/timestamp	ba95c37a2b1f8ec2
+28	154	7639108678439878	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/LoginForm_autogen/mocs_compilation.cpp	ba95c37a2b1f8ec2
+29	507	7639109113873648	LoginForm_autogen/timestamp	ba95c37a2b1f8ec2
+29	507	7639109113873648	LoginForm_autogen/mocs_compilation.cpp	ba95c37a2b1f8ec2
+29	507	7639109113873648	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/LoginForm_autogen/timestamp	ba95c37a2b1f8ec2
+29	507	7639109113873648	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/LoginForm_autogen/mocs_compilation.cpp	ba95c37a2b1f8ec2
+508	2853	7639109114391697	CMakeFiles/LoginForm.dir/LoginForm_autogen/mocs_compilation.cpp.obj	4436df7f0ce49b12
+512	2933	7639109114434784	CMakeFiles/LoginForm.dir/main.cpp.obj	ed7aeafe99fad51a
+515	3389	7639109114469958	CMakeFiles/LoginForm.dir/mainwindow.cpp.obj	9d7086b61d7710fe
+3389	3663	7639109143204285	LoginForm.exe	6f52bebba649b691
