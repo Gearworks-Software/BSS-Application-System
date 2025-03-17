@@ -9,10 +9,10 @@
 	[
 		"C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/CMakeLists.txt",
 		"C:/Program Files/CMake/share/cmake-4.0/Modules/CMakeDetermineSystem.cmake",
-		"C:/Qt/6.8.2/mingw_64/lib/cmake/Qt6/qt.toolchain.cmake",
+		"c:/Qt/6.8.2/mingw_64/lib/cmake/Qt6/qt.toolchain.cmake",
 		"C:/Program Files/CMake/share/cmake-4.0/Modules/CMakeSystem.cmake.in",
 		"C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/CMakeFiles/4.0.0-rc4/CMakeSystem.cmake",
-		"C:/Qt/6.8.2/mingw_64/lib/cmake/Qt6/qt.toolchain.cmake",
+		"c:/Qt/6.8.2/mingw_64/lib/cmake/Qt6/qt.toolchain.cmake",
 		"C:/Program Files/CMake/share/cmake-4.0/Modules/CMakeNinjaFindMake.cmake",
 		"C:/Program Files/CMake/share/cmake-4.0/Modules/CMakeSystemSpecificInitialize.cmake",
 		"C:/Program Files/CMake/share/cmake-4.0/Modules/Platform/Windows-Initialize.cmake",
@@ -337,7 +337,15 @@
 	"CROSS_CONFIG" : false,
 	"DEP_FILE" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/LoginForm_autogen/deps",
 	"DEP_FILE_RULE_NAME" : "LoginForm_autogen/timestamp",
-	"HEADERS" : [],
+	"HEADERS" : 
+	[
+		[
+			"C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/mainwindow.h",
+			"MU",
+			"EWIEGA46WW/moc_mainwindow.cpp",
+			null
+		]
+	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
 	"INCLUDE_DIR" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/LoginForm_autogen/include",
 	"MOC_COMPILATION_FILE" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/LoginForm_autogen/mocs_compilation.cpp",
@@ -389,7 +397,7 @@
 	"MOC_PATH_PREFIX" : false,
 	"MOC_PREDEFS_CMD" : 
 	[
-		"C:/Qt/Tools/mingw1310_64/bin/g++.exe",
+		"c:/Qt/Tools/mingw1310_64/bin/g++.exe",
 		"-dM",
 		"-E",
 		"-c",
@@ -406,7 +414,19 @@
 	"QT_VERSION_MAJOR" : 6,
 	"QT_VERSION_MINOR" : 8,
 	"SETTINGS_FILE" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/CMakeFiles/LoginForm_autogen.dir/AutogenUsed.txt",
-	"SOURCES" : [],
+	"SOURCES" : 
+	[
+		[
+			"C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/main.cpp",
+			"MU",
+			null
+		],
+		[
+			"C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/mainwindow.cpp",
+			"MU",
+			null
+		]
+	],
 	"UIC_OPTIONS" : [],
 	"UIC_SEARCH_PATHS" : [],
 	"UIC_SKIP" : [],
