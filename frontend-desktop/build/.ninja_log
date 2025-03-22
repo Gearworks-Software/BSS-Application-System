@@ -1,0 +1,9 @@
+# ninja log v6
+12	173	7639246722855706	LoginForm_autogen/timestamp	ba95c37a2b1f8ec2
+12	173	7639246722855706	LoginForm_autogen/mocs_compilation.cpp	ba95c37a2b1f8ec2
+12	173	7639246722855706	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/LoginForm_autogen/mocs_compilation.cpp	ba95c37a2b1f8ec2
+12	173	7639246722855706	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/LoginForm_autogen/timestamp	ba95c37a2b1f8ec2
+758	3471	7639242885820286	CMakeFiles/LoginForm.dir/LoginForm_autogen/mocs_compilation.cpp.obj	4436df7f0ce49b12
+198	2285	7639244961064841	CMakeFiles/LoginForm.dir/main.cpp.obj	ed7aeafe99fad51a
+174	2451	7639246724476424	CMakeFiles/LoginForm.dir/mainwindow.cpp.obj	9d7086b61d7710fe
+2451	2618	7639246747160883	LoginForm.exe	6f52bebba649b691

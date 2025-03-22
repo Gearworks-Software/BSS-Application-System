@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -7,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     connect(ui->login_button, SIGNAL(clicked()),this,SLOT(on_login_button_Clicked()));
+    std::cout << "test";
 }
 
 MainWindow::~MainWindow()
