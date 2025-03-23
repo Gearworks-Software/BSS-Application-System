@@ -1,11 +1,18 @@
 {
+    "$schema": "https://json.schemastore.org/tsconfig",
     "compilerOptions": {
-      "module": "commonjs",
-      "esModuleInterop": true,
-      "target": "es6",
-      "moduleResolution": "node",
-      "sourceMap": true,
-      "outDir": "dist"
+        "lib": ["ESNext"],
+        "module": "ESNext",
+        "esModuleInterop": true,
+        "target": "ES2022",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "outDir": "dist"
     },
-    // "lib": ["es2015"]
-  }
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules"],
+    "ts-node": {
+        "esm": true,
+        "experimentalSpecifierResolution": "node"
+    }
+}
