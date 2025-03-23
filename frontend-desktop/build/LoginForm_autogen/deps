@@ -543,14 +543,14 @@ LoginForm_autogen/timestamp: \
 	C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/time.h \
 	C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/vadefs.h \
 	C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/wchar.h \
-	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/CMakeLists.txt \
-	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/CMakeFiles/4.0.0-rc4/CMakeCXXCompiler.cmake \
-	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/CMakeFiles/4.0.0-rc4/CMakeRCCompiler.cmake \
-	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/CMakeFiles/4.0.0-rc4/CMakeSystem.cmake \
-	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/LoginForm_autogen/moc_predefs.h \
-	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/main.cpp \
-	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/mainwindow.cpp \
-	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/mainwindow.h \
+	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/CMakeLists.txt \
+	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build/CMakeFiles/4.0.0-rc4/CMakeCXXCompiler.cmake \
+	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build/CMakeFiles/4.0.0-rc4/CMakeRCCompiler.cmake \
+	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build/CMakeFiles/4.0.0-rc4/CMakeSystem.cmake \
+	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build/LoginForm_autogen/moc_predefs.h \
+	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/main.cpp \
+	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/mainwindow.cpp \
+	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/mainwindow.h \
 	c:/Qt/6.8.2/mingw_64/lib/cmake/Qt6/qt.toolchain.cmake \
-	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/mainwindow.ui \
+	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/mainwindow.ui \
 	C:/Program\ Files/CMake/bin/cmake.exe

@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System
+# Install script for directory: C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,7 +38,7 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/LoginForm.exe")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build/LoginForm.exe")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/LoginForm.exe" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/LoginForm.exe")
     if(CMAKE_INSTALL_DO_STRIP)
@@ -48,13 +48,13 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  include("C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/.qt/deploy_LoginForm_b3c0daac23.cmake")
+  include("C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build/.qt/deploy_LoginForm_b3c0daac23.cmake")
 endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/install_local_manifest.txt"
+  file(WRITE "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()
 if(CMAKE_INSTALL_COMPONENT)
@@ -70,6 +70,6 @@ else()
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/${CMAKE_INSTALL_MANIFEST}"
+  file(WRITE "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

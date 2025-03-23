@@ -1,18 +1,18 @@
 {
 	"AUTOGEN_COMMAND_LINE_LENGTH_MAX" : 32000,
-	"BUILD_DIR" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/LoginForm_autogen",
-	"CMAKE_BINARY_DIR" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build",
-	"CMAKE_CURRENT_BINARY_DIR" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build",
-	"CMAKE_CURRENT_SOURCE_DIR" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System",
+	"BUILD_DIR" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build/LoginForm_autogen",
+	"CMAKE_BINARY_DIR" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build",
+	"CMAKE_CURRENT_BINARY_DIR" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build",
+	"CMAKE_CURRENT_SOURCE_DIR" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop",
 	"CMAKE_EXECUTABLE" : "C:/Program Files/CMake/bin/cmake.exe",
 	"CMAKE_LIST_FILES" : 
 	[
-		"C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/CMakeLists.txt",
-		"C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/CMakeFiles/4.0.0-rc4/CMakeSystem.cmake",
+		"C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/CMakeLists.txt",
+		"C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build/CMakeFiles/4.0.0-rc4/CMakeSystem.cmake",
 		"c:/Qt/6.8.2/mingw_64/lib/cmake/Qt6/qt.toolchain.cmake",
 		"C:/Program Files/CMake/share/cmake-4.0/Modules/CMakeSystemSpecificInitialize.cmake",
 		"C:/Program Files/CMake/share/cmake-4.0/Modules/Platform/Windows-Initialize.cmake",
-		"C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/CMakeFiles/4.0.0-rc4/CMakeCXXCompiler.cmake",
+		"C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build/CMakeFiles/4.0.0-rc4/CMakeCXXCompiler.cmake",
 		"C:/Program Files/CMake/share/cmake-4.0/Modules/CMakeSystemSpecificInformation.cmake",
 		"C:/Program Files/CMake/share/cmake-4.0/Modules/CMakeGenericSystem.cmake",
 		"C:/Program Files/CMake/share/cmake-4.0/Modules/CMakeInitializeConfigs.cmake",
@@ -25,7 +25,7 @@
 		"C:/Program Files/CMake/share/cmake-4.0/Modules/Compiler/CMakeCommonCompilerMacros.cmake",
 		"C:/Program Files/CMake/share/cmake-4.0/Modules/Platform/Windows-GNU-CXX.cmake",
 		"C:/Program Files/CMake/share/cmake-4.0/Modules/Platform/Windows-GNU.cmake",
-		"C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/CMakeFiles/4.0.0-rc4/CMakeRCCompiler.cmake",
+		"C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build/CMakeFiles/4.0.0-rc4/CMakeRCCompiler.cmake",
 		"C:/Program Files/CMake/share/cmake-4.0/Modules/CMakeRCInformation.cmake",
 		"C:/Program Files/CMake/share/cmake-4.0/Modules/Platform/Windows-windres.cmake",
 		"C:/Program Files/CMake/share/cmake-4.0/Modules/Platform/Windows-GNU-CXX-ABI.cmake",
@@ -262,22 +262,22 @@
 		"C:/Program Files/CMake/share/cmake-4.0/Modules/GNUInstallDirs.cmake",
 		"C:/Program Files/CMake/share/cmake-4.0/Modules/GNUInstallDirs.cmake"
 	],
-	"CMAKE_SOURCE_DIR" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System",
+	"CMAKE_SOURCE_DIR" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop",
 	"CROSS_CONFIG" : false,
-	"DEP_FILE" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/LoginForm_autogen/deps",
+	"DEP_FILE" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build/LoginForm_autogen/deps",
 	"DEP_FILE_RULE_NAME" : "LoginForm_autogen/timestamp",
 	"HEADERS" : 
 	[
 		[
-			"C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/mainwindow.h",
+			"C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/mainwindow.h",
 			"MU",
 			"EWIEGA46WW/moc_mainwindow.cpp",
 			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
-	"INCLUDE_DIR" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/LoginForm_autogen/include",
-	"MOC_COMPILATION_FILE" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/LoginForm_autogen/mocs_compilation.cpp",
+	"INCLUDE_DIR" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build/LoginForm_autogen/include",
+	"MOC_COMPILATION_FILE" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build/LoginForm_autogen/mocs_compilation.cpp",
 	"MOC_DEFINITIONS" : 
 	[
 		"MINGW_HAS_SECURE_API=1",
@@ -332,26 +332,26 @@
 		"-c",
 		"C:/Program Files/CMake/share/cmake-4.0/Modules/CMakeCXXCompilerABI.cpp"
 	],
-	"MOC_PREDEFS_FILE" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/LoginForm_autogen/moc_predefs.h",
+	"MOC_PREDEFS_FILE" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build/LoginForm_autogen/moc_predefs.h",
 	"MOC_RELAXED_MODE" : false,
 	"MOC_SKIP" : [],
 	"MULTI_CONFIG" : false,
 	"PARALLEL" : 6,
-	"PARSE_CACHE_FILE" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/CMakeFiles/LoginForm_autogen.dir/ParseCache.txt",
+	"PARSE_CACHE_FILE" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build/CMakeFiles/LoginForm_autogen.dir/ParseCache.txt",
 	"QT_MOC_EXECUTABLE" : "C:/Qt/6.8.2/mingw_64/bin/moc.exe",
 	"QT_UIC_EXECUTABLE" : "C:/Qt/6.8.2/mingw_64/bin/uic.exe",
 	"QT_VERSION_MAJOR" : 6,
 	"QT_VERSION_MINOR" : 8,
-	"SETTINGS_FILE" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/CMakeFiles/LoginForm_autogen.dir/AutogenUsed.txt",
+	"SETTINGS_FILE" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build/CMakeFiles/LoginForm_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
 		[
-			"C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/main.cpp",
+			"C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/main.cpp",
 			"MU",
 			null
 		],
 		[
-			"C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/mainwindow.cpp",
+			"C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/mainwindow.cpp",
 			"MU",
 			null
 		]

@@ -1,5 +1,5 @@
-C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/LoginForm_autogen/EWIEGA46WW/moc_mainwindow.cpp: C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/mainwindow.h \
-  C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/LoginForm_autogen/moc_predefs.h \
+C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build/LoginForm_autogen/EWIEGA46WW/moc_mainwindow.cpp: C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/mainwindow.h \
+  C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build/LoginForm_autogen/moc_predefs.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/q20functional.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/q20iterator.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/q20memory.h \

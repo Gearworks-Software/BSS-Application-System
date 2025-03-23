@@ -1092,8 +1092,8 @@
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build",
-		"source" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System"
+		"build" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build",
+		"source" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop"
 	},
 	"version" : 
 	{

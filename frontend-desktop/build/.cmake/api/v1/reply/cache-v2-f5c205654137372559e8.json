@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "c:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build"
+			"value" : "c:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -139,10 +139,10 @@
 				},
 				{
 					"name" : "HELPSTRING",
-					"value" : "No help, variable specified on the command line."
+					"value" : "CXX compiler"
 				}
 			],
-			"type" : "FILEPATH",
+			"type" : "STRING",
 			"value" : "c:/Qt/Tools/mingw1310_64/bin/g++.exe"
 		},
 		{
@@ -455,7 +455,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build/CMakeFiles/pkgRedirects"
+			"value" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -539,7 +539,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System"
+			"value" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop"
 		},
 		{
 			"name" : "CMAKE_INSTALL_BINDIR",
@@ -1423,7 +1423,7 @@
 			[
 				{
 					"name" : "HELPSTRING",
-					"value" : "No help, variable specified on the command line."
+					"value" : "The CMake toolchain file"
 				}
 			],
 			"type" : "FILEPATH",
@@ -1491,7 +1491,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/build"
+			"value" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build"
 		},
 		{
 			"name" : "LoginForm_IS_TOP_LEVEL",
@@ -1515,7 +1515,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System"
+			"value" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop"
 		},
 		{
 			"name" : "QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH",
