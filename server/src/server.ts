@@ -27,7 +27,7 @@ async function verifyHash(str: string, hash: string) {
 
 hashString('somePassword').then(async (hash) => {
     console.log('Hash + salt of the password:', hash)
-    console.log('Password verification success:', await verifyHash('somePassword', hash));
+    console.log('Password verification success:', await verifyHash('somePasswordhetd', hash));
 });
 
 // Start the server

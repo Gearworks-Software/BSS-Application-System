@@ -1,6 +1,13 @@
 {
     "files.associations": {
         "*.ui": "cpp",
-        "qapplication": "cpp"
+        "qapplication": "cpp",
+        "iostream": "cpp",
+        "qdebug": "cpp",
+        "qfile": "cpp",
+        "qproxystyle": "cpp",
+        "qwidget": "cpp",
+        "qstyleoption": "cpp",
+        "qpainter": "cpp"
     }
 }

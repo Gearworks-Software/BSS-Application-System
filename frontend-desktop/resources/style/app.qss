@@ -1,0 +1,72 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Application Window */
+QWidget {
+    background-color: #f5f5f5;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Buttons */
+QPushButton {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+}
+
+QPushButton:hover {
+    background-color: #0056b3;
+}
+
+QPushButton:pressed {
+    background-color: #ff8a4f;
+}
+
+/* Line Edits */
+QLineEdit {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 6px 10px;
+    background-color: #fff;
+}
+
+QLineEdit:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Labels */
+QLabel {
+    font-size: 14px;
+    color: #333;
+}
+
+/* Scrollbars */
+QScrollBar:vertical, QScrollBar:horizontal {
+    background: #eaeaea;
+    border: none;
+    width: 10px;
+    height: 10px;
+}
+
+QScrollBar::handle {
+    background: #007bff;
+    border-radius: 5px;
+}
+
+QScrollBar::handle:hover {
+    background: #0056b3;
+}
+
+QScrollBar::add-line, QScrollBar::sub-line {
+    background: none;
+    border: none;
+}
