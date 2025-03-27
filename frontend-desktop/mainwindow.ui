@@ -155,9 +155,9 @@
      </disabled>
     </palette>
    </property>
-   <layout class="QGridLayout" name="gridLayout_3">
-    <item row="0" column="0">
-     <widget class="QFrame" name="frame">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QFrame" name="login_frame">
       <property name="palette">
        <palette>
         <active>
@@ -194,8 +194,8 @@
       <widget class="QPushButton" name="login_button">
        <property name="geometry">
         <rect>
-         <x>210</x>
-         <y>310</y>
+         <x>170</x>
+         <y>330</y>
          <width>120</width>
          <height>41</height>
         </rect>
@@ -279,11 +279,11 @@
         <bool>true</bool>
        </property>
       </widget>
-      <widget class="QLabel" name="label_8">
+      <widget class="QLabel" name="login_header">
        <property name="geometry">
         <rect>
-         <x>140</x>
-         <y>110</y>
+         <x>100</x>
+         <y>130</y>
          <width>301</width>
          <height>61</height>
         </rect>
@@ -299,17 +299,20 @@
        <property name="text">
         <string>Staff Login</string>
        </property>
+       <property name="h1" stdset="0">
+        <bool>true</bool>
+       </property>
       </widget>
       <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
-         <x>140</x>
-         <y>170</y>
+         <x>100</x>
+         <y>190</y>
          <width>271</width>
          <height>126</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="grid_layout">
+       <layout class="QGridLayout" name="login_form">
         <item row="2" column="0">
          <widget class="QLabel" name="password_label">
           <property name="font">
@@ -343,7 +346,7 @@
          </widget>
         </item>
         <item row="3" column="0">
-         <widget class="QLineEdit" name="password_text">
+         <widget class="QLineEdit" name="password_field">
           <property name="palette">
            <palette>
             <active>
@@ -401,7 +404,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QLineEdit" name="email_text">
+         <widget class="QLineEdit" name="email_field">
           <property name="palette">
            <palette>
             <active>
@@ -465,7 +468,7 @@
       </widget>
      </widget>
     </item>
-    <item row="0" column="1">
+    <item>
      <widget class="QFrame" name="frame_2">
       <property name="frameShape">
        <enum>QFrame::Shape::StyledPanel</enum>

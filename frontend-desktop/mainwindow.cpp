@@ -11,7 +11,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     // Load Stylesheet
-    // Use QFile::exists to check if the resource is accessible.
     QString resourcePath = ":/resources/style/app.qss";
     if (QFile::exists(resourcePath)) {
         qDebug() << "Resource exists:" << resourcePath;
@@ -21,9 +20,9 @@ MainWindow::MainWindow(QWidget *parent)
     QFile file(resourcePath);
     file.open(QFile::ReadOnly);
     QString styleSheet = QLatin1String(file.readAll());
-    qDebug() << styleSheet;
     this->setStyleSheet(styleSheet);
 
+    // Connect signal handlers
     connect(ui->login_button, SIGNAL(clicked()), this, SLOT(on_login_button_Clicked()));
     std::cout << "test";
 }

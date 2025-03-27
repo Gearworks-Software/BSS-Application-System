@@ -231,6 +231,7 @@ frontend-desktop_autogen/timestamp: \
 	C:/Qt/6.8.2/mingw_64/lib/cmake/Qt6Core/Qt6CoreConfigExtras.cmake \
 	C:/Qt/6.8.2/mingw_64/lib/cmake/Qt6Core/Qt6CoreConfigVersion.cmake \
 	C:/Qt/6.8.2/mingw_64/lib/cmake/Qt6Core/Qt6CoreConfigVersionImpl.cmake \
+	C:/Qt/6.8.2/mingw_64/lib/cmake/Qt6Core/Qt6CoreConfigureFileTemplate.in \
 	C:/Qt/6.8.2/mingw_64/lib/cmake/Qt6Core/Qt6CoreDependencies.cmake \
 	C:/Qt/6.8.2/mingw_64/lib/cmake/Qt6Core/Qt6CoreMacros.cmake \
 	C:/Qt/6.8.2/mingw_64/lib/cmake/Qt6Core/Qt6CoreTargets-relwithdebinfo.cmake \
@@ -551,6 +552,7 @@ frontend-desktop_autogen/timestamp: \
 	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/main.cpp \
 	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/mainwindow.cpp \
 	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/mainwindow.h \
+	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/rsrc.qrc \
 	c:/Qt/6.8.2/mingw_64/lib/cmake/Qt6/qt.toolchain.cmake \
 	C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/mainwindow.ui \
 	C:/Program\ Files/CMake/bin/cmake.exe

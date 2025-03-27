@@ -8,6 +8,7 @@
         "qproxystyle": "cpp",
         "qwidget": "cpp",
         "qstyleoption": "cpp",
-        "qpainter": "cpp"
+        "qpainter": "cpp",
+        "new": "cpp"
     }
 }

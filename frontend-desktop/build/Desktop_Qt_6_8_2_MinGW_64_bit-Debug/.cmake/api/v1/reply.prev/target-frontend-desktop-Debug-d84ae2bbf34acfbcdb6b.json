@@ -23,7 +23,14 @@
 			"include",
 			"find_package",
 			"find_dependency",
-			"_qt_internal_find_qt_dependencies"
+			"_qt_internal_find_qt_dependencies",
+			"target_sources",
+			"__qt_propagate_generated_resource",
+			"_qt_internal_process_resource",
+			"qt6_add_resources",
+			"qt_add_resources",
+			"_qt_internal_expose_deferred_files_to_ide",
+			"qt6_finalize_target"
 		],
 		"files" : 
 		[
@@ -41,7 +48,8 @@
 			"C:/Qt/6.8.2/mingw_64/lib/cmake/Qt6Core/Qt6CoreDependencies.cmake",
 			"C:/Qt/6.8.2/mingw_64/lib/cmake/Qt6Gui/Qt6GuiTargets.cmake",
 			"C:/Qt/6.8.2/mingw_64/lib/cmake/Qt6Gui/Qt6GuiConfig.cmake",
-			"C:/Qt/6.8.2/mingw_64/lib/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake"
+			"C:/Qt/6.8.2/mingw_64/lib/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake",
+			"C:/Qt/6.8.2/mingw_64/lib/cmake/Qt6Core/Qt6CoreMacros.cmake:861:EVAL"
 		],
 		"nodes" : 
 		[
@@ -51,7 +59,7 @@
 			{
 				"command" : 3,
 				"file" : 1,
-				"line" : 8,
+				"line" : 10,
 				"parent" : 0
 			},
 			{
@@ -75,13 +83,13 @@
 			{
 				"command" : 4,
 				"file" : 1,
-				"line" : 27,
+				"line" : 37,
 				"parent" : 0
 			},
 			{
 				"command" : 5,
 				"file" : 1,
-				"line" : 19,
+				"line" : 29,
 				"parent" : 0
 			},
 			{
@@ -253,6 +261,59 @@
 				"file" : 12,
 				"line" : 61,
 				"parent" : 37
+			},
+			{
+				"command" : 15,
+				"file" : 1,
+				"line" : 24,
+				"parent" : 0
+			},
+			{
+				"command" : 14,
+				"file" : 0,
+				"line" : 458,
+				"parent" : 39
+			},
+			{
+				"command" : 13,
+				"file" : 0,
+				"line" : 406,
+				"parent" : 40
+			},
+			{
+				"command" : 12,
+				"file" : 0,
+				"line" : 2491,
+				"parent" : 41
+			},
+			{
+				"command" : 11,
+				"file" : 0,
+				"line" : 2089,
+				"parent" : 42
+			},
+			{
+				"file" : 1,
+				"line" : -1,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 15,
+				"line" : 1,
+				"parent" : 44
+			},
+			{
+				"command" : 16,
+				"file" : 0,
+				"line" : 817,
+				"parent" : 45
+			},
+			{
+				"command" : 11,
+				"file" : 0,
+				"line" : 2212,
+				"parent" : 46
 			}
 		]
 	},
@@ -349,7 +410,9 @@
 			[
 				0,
 				1,
-				2
+				2,
+				6,
+				10
 			]
 		}
 	],
@@ -471,8 +534,9 @@
 			"sourceIndexes" : 
 			[
 				0,
-				6,
-				7
+				8,
+				9,
+				10
 			]
 		},
 		{
@@ -480,7 +544,8 @@
 			"sourceIndexes" : 
 			[
 				1,
-				2
+				2,
+				6
 			]
 		},
 		{
@@ -501,14 +566,17 @@
 			"name" : "Resources",
 			"sourceIndexes" : 
 			[
-				5
+				5,
+				7
 			]
 		},
 		{
 			"name" : "CMake Rules",
 			"sourceIndexes" : 
 			[
-				8
+				11,
+				12,
+				13
 			]
 		}
 	],
@@ -545,7 +613,20 @@
 		},
 		{
 			"backtrace" : 4,
-			"path" : "resources.qrc",
+			"path" : "rsrc.qrc",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 43,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qt/rcc/qrc_resources.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 47,
+			"isGenerated" : true,
+			"path" : "build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qt/rcc/resources.qrc",
 			"sourceGroupIndex" : 4
 		},
 		{
@@ -562,8 +643,27 @@
 		},
 		{
 			"backtrace" : 0,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/frontend-desktop_autogen/EWIEGA46WW/qrc_rsrc.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qt/rcc/qrc_resources.cpp.rule",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 0,
 			"isGenerated" : true,
 			"path" : "build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/frontend-desktop_autogen/timestamp.rule",
+			"sourceGroupIndex" : 5
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/frontend-desktop_autogen/EWIEGA46WW/qrc_rsrc.cpp.rule",
 			"sourceGroupIndex" : 5
 		}
 	],

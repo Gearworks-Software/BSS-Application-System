@@ -7,7 +7,7 @@
 				{
 					"build" : ".",
 					"hasInstallRule" : true,
-					"jsonFile" : "directory-.-Debug-473fa76bb2f5800c4a80.json",
+					"jsonFile" : "directory-.-Debug-f481977493cf34dd1f49.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.16"
@@ -44,14 +44,14 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "frontend-desktop::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-frontend-desktop-Debug-5733af8e0b2c8565c46b.json",
+					"jsonFile" : "target-frontend-desktop-Debug-e5f0a17446bb64137d22.json",
 					"name" : "frontend-desktop",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "frontend-desktop_autogen::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-frontend-desktop_autogen-Debug-ccb00fc90c3c52366da8.json",
+					"jsonFile" : "target-frontend-desktop_autogen-Debug-754319ee49658445a332.json",
 					"name" : "frontend-desktop_autogen",
 					"projectIndex" : 0
 				},
@@ -68,12 +68,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug",
+		"build" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build",
 		"source" : "C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 7
+		"minor" : 8
 	}
 }

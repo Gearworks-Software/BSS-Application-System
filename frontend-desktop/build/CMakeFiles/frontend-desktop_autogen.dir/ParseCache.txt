@@ -362,6 +362,6 @@ C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/front
  mdp:C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/wchar.h
  mdp:C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build/frontend-desktop_autogen/moc_predefs.h
  mdp:C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/mainwindow.h
-C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/main.cpp
 C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/mainwindow.cpp
  uic:ui_mainwindow.h
+C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/main.cpp
