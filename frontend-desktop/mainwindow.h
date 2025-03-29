@@ -16,11 +16,14 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void initFlags();
+    void initStyle();
 
 private slots:
     void on_login_button_Clicked();
 
 private:
     Ui::MainWindow *ui;
+    Qt::WindowFlags flags;
 };
 #endif // MAINWINDOW_H
