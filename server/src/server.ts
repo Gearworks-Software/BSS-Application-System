@@ -2,10 +2,11 @@ import argon2 from 'argon2';
 import crypto from 'crypto';
 import mysql from 'mysql2/promise';
 import express from 'express';
+import 'dotenv/config'
 const server = express();
 server.use(express.json());
 const port = 3080;
-const dbmsIP = '192.168.228.128';
+const dbmsIP = process.env.DBMS_IP;
 
 const hashOptions = {
 	parallelism: 1,
@@ -34,9 +35,50 @@ hashString('somePassword').then(async (hash) => {
 server.get('/', (req, res) => {
 	res.send('Hello World!');
 });
-server.post('/login', (req, res) => {
+server.post('/login', async (req, res) => {
 	res.send('Logged In!');
 	console.log(req.body);
+	req.body
+	try {
+		const [results, fields] = await dbConnection.execute(
+			'SELECT * FROM `users` WHERE `email` = ?',
+			[req.body['email']]
+		)
+		console.log(results);
+		console.log(fields);
+	} catch (err) {
+		console.error(err);
+	}
+});
+server.post('/login', async (req, res) => {
+	res.send('Logged In!');
+	console.log(req.body);
+	req.body
+	try {
+		const [results, fields] = await dbConnection.execute(
+			'SELECT * FROM `users` WHERE `email` = ?',
+			[req.body['email']]
+		)
+		console.log(results);
+		console.log(fields);
+	} catch (err) {
+		console.error(err);
+	}
+});
+server.post('/register', async (req, res) => {
+	res.send('Register request...');
+	console.log(req.body);
+	req.body
+	try {
+		const [results, fields] = await dbConnection.execute(
+			'SELECT * FROM `users` WHERE `email` = ?',
+			[req.body['email']]
+		)
+		console.log(results);
+		console.log(fields);
+	} catch (err) {
+		console.error(err);
+	}
 });
 
 // Start the server
@@ -51,16 +93,4 @@ const dbConnection = await mysql.createConnection({
 	password: 'bss25',
 	database: 'application_system'
 });
-
-try {
-	const [results, fields] = await dbConnection.execute(
-		'SELECT * FROM users'
-	);
-	console.log(results);
-	console.log(fields);
-} catch (err) {
-	console.error(err);
-}
-
-
 
