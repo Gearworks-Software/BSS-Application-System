@@ -3,6 +3,7 @@ import crypto from 'crypto';
 import mysql from 'mysql2/promise';
 import express from 'express';
 const server = express();
+server.use(express.json());
 const port = 3080;
 const dbmsIP = '192.168.228.128';
 
@@ -33,8 +34,9 @@ hashString('somePassword').then(async (hash) => {
 server.get('/', (req, res) => {
 	res.send('Hello World!');
 });
-server.get('/login', (req, res) => {
+server.post('/login', (req, res) => {
 	res.send('Logged In!');
+	console.log(req.body);
 });
 
 // Start the server
