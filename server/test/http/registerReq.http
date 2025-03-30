@@ -1,0 +1,10 @@
+# Example requests
+
+### Create item
+POST http://localhost:3080/login
+content-type: application/json
+
+{
+    "email": "Example item",
+    "password": "This is an example item."
+}
