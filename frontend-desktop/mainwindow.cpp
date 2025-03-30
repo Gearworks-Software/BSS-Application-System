@@ -3,10 +3,8 @@
 #include <QFile>
 #include "ui_mainwindow.h"
 
-
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     // Setup window
     ui->setupUi(this);
@@ -19,8 +17,16 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Connect remaining signal handlers
     connect(ui->login_button, SIGNAL(clicked()), this, SLOT(on_login_button_Clicked()));
-    QList<QPushButton*> buttons = this->findChildren<QPushButton*>();
-    for (QPushButton button in buttons)
+    QList<QPushButton *> buttons = this->findChildren<QPushButton *>();
+    for (QPushButton *button : buttons)
+    {
+        qDebug() << "debug: " << button->text() << button->property("isBackButton").toBool();
+        if (button->property("isBackButton").toBool())
+        {
+            qDebug() << "debug: isbackbutton";
+            connect(button, SIGNAL(clicked()), this, SLOT(on_back_button_Clicked()));
+        }
+    }
 }
 
 MainWindow::~MainWindow()
@@ -36,19 +42,35 @@ void MainWindow::initFlags()
 
 void MainWindow::on_login_button_Clicked()
 {
-    qDebug() << "Login button clicked";
     ui->stackedWidget->setCurrentIndex(1);
     ui->welcome_page_heading->setText(ui->welcome_page_heading->text() + "user");
-    sendHttpRequest("login");
+
+    QJsonObject jsonObj;
+    jsonObj["email"] = ui->email_field->text();
+    jsonObj["password"] = ui->password_field->text();
+    QJsonDocument jsonDoc(jsonObj);
+    QByteArray data = jsonDoc.toJson();
+    // QByteArray data;
+    //     data.append(R"({\n{"email": ")")
+    //         .append(ui->email_field->text().toStdString())
+    //         .append("\", ")
+    //         .append(R"({"password": )")
+    //         .append(ui->password_field->text().toStdString())
+    //         .append("\n}");
+    qDebug() << data;
+    sendHttpRequest(HTTP_METHOD::POST, "login", data);
 }
 
 void MainWindow::initStyle()
 {
     // Load Stylesheet
     QString resourcePath = ":/resources/style/app.qss";
-    if (QFile::exists(resourcePath)) {
+    if (QFile::exists(resourcePath))
+    {
         qDebug() << "Resource exists:" << resourcePath;
-    } else {
+    }
+    else
+    {
         qDebug() << "Resource NOT found:" << resourcePath;
     }
     QFile file(resourcePath);
@@ -62,17 +84,17 @@ void MainWindow::initHttpClient(QString hostIP, QString hostPort)
     this->hostIP = hostIP;
     this->hostPort = hostPort;
     networkManager = new QNetworkAccessManager();
-    QObject::connect(
-        networkManager, 
-        SIGNAL(finished(QNetworkReply*)), 
+    connect(
+        networkManager,
+        SIGNAL(finished(QNetworkReply *)),
         this,
-        SLOT(on_networkManager_Finished(QNetworkReply*))
-    );
+        SLOT(on_networkManager_Finished(QNetworkReply *)));
 }
 
 void MainWindow::on_networkManager_Finished(QNetworkReply *reply)
 {
-    if (reply->error()) {
+    if (reply->error())
+    {
         qDebug() << reply->errorString();
         return;
     }
@@ -82,9 +104,31 @@ void MainWindow::on_networkManager_Finished(QNetworkReply *reply)
     qDebug() << "Network Manager:" << answer;
 }
 
-void MainWindow::sendHttpRequest(QString endpoint) {
-    QString httpRequest = "http://"+hostIP+":"+hostPort+"/"+endpoint;
+void MainWindow::sendHttpRequest(HTTP_METHOD method, QString endpoint, QByteArray jsonObj)
+{
+    QString httpRequest = "http://" + hostIP + ":" + hostPort + "/" + endpoint;
     qDebug() << "Http request: " << httpRequest;
     networkRequest.setUrl(QUrl(httpRequest));
-    networkManager->get(networkRequest);
+    networkRequest.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    switch (method)
+    {
+    case HTTP_METHOD::GET:
+        networkManager->get(networkRequest);
+        break;
+    case HTTP_METHOD::POST:
+        qDebug() << jsonObj;
+        networkManager->post(networkRequest, jsonObj);
+        break;
+    default:
+        break;
+    }
+}
+
+void MainWindow::on_back_button_Clicked()
+{
+    int currentIndex = ui->stackedWidget->currentIndex();
+    if (currentIndex > 0)
+    {
+        ui->stackedWidget->setCurrentIndex(currentIndex-1);
+    }
 }

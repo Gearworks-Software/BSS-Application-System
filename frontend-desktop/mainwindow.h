@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
+#include <QJsonObject>
+#include <QJsonDocument>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -15,17 +17,10 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
-public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
-    void initFlags();
-    void initStyle();
-    void initHttpClient(QString hostIP, QString hostPort);
-    void sendHttpRequest(QString endpoint);
-
 private slots:
     void on_networkManager_Finished(QNetworkReply *reply);
     void on_login_button_Clicked();
+    void on_back_button_Clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -33,5 +28,19 @@ private:
     QNetworkAccessManager *networkManager;
     QNetworkRequest networkRequest;
     QString hostIP, hostPort;
+    enum class HTTP_METHOD
+    {
+        GET,
+        POST,
+        DELETE
+    };
+
+public:
+    MainWindow(QWidget *parent = nullptr);
+    ~MainWindow();
+    void initFlags();
+    void initStyle();
+    void initHttpClient(QString hostIP, QString hostPort);
+    void sendHttpRequest(HTTP_METHOD METHOD, QString endpoint, QByteArray jsonObj);
 };
 #endif // MAINWINDOW_H

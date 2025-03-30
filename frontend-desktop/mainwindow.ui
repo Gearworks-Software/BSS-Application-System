@@ -574,7 +574,7 @@
          <number>0</number>
         </property>
         <item row="0" column="0">
-         <widget class="QWidget" name="login_screen_2" native="true">
+         <widget class="QWidget" name="welcome_screen" native="true">
           <layout class="QVBoxLayout" name="verticalLayout">
            <property name="spacing">
             <number>0</number>
@@ -673,7 +673,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="register_applicant_button_2">
+               <widget class="QPushButton" name="back_button">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -770,8 +770,8 @@
                 <property name="flat">
                  <bool>true</bool>
                 </property>
-                <property name="isBigButton" stdset="0">
-                 <bool>false</bool>
+                <property name="isBackButton" stdset="0">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
