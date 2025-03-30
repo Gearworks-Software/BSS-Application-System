@@ -1,10 +1,20 @@
 C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/frontend-desktop_autogen/EWIEGA46WW/moc_mainwindow.cpp: C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/mainwindow.h \
   C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/frontend-desktop/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/frontend-desktop_autogen/moc_predefs.h \
+  C:/Qt/6.8.2/mingw_64/include/QtCore/QFlags \
+  C:/Qt/6.8.2/mingw_64/include/QtCore/QIODevice \
+  C:/Qt/6.8.2/mingw_64/include/QtCore/QList \
+  C:/Qt/6.8.2/mingw_64/include/QtCore/QMetaType \
+  C:/Qt/6.8.2/mingw_64/include/QtCore/QObject \
+  C:/Qt/6.8.2/mingw_64/include/QtCore/QSharedDataPointer \
+  C:/Qt/6.8.2/mingw_64/include/QtCore/QString \
+  C:/Qt/6.8.2/mingw_64/include/QtCore/QUrl \
+  C:/Qt/6.8.2/mingw_64/include/QtCore/QVariant \
   C:/Qt/6.8.2/mingw_64/include/QtCore/q20functional.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/q20iterator.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/q20memory.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/q20type_traits.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/q23utility.h \
+  C:/Qt/6.8.2/mingw_64/include/QtCore/q26numeric.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qalgorithms.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qanystringview.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qarraydata.h \
@@ -19,6 +29,7 @@ C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/front
   C:/Qt/6.8.2/mingw_64/include/QtCore/qbytearrayalgorithms.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qbytearraylist.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qbytearrayview.h \
+  C:/Qt/6.8.2/mingw_64/include/QtCore/qcalendar.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qchar.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qcompare.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qcompare_impl.h \
@@ -30,8 +41,10 @@ C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/front
   C:/Qt/6.8.2/mingw_64/include/QtCore/qcontainerinfo.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qcontainertools_impl.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qcontiguouscache.h \
+  C:/Qt/6.8.2/mingw_64/include/QtCore/qcryptographichash.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qdarwinhelpers.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qdatastream.h \
+  C:/Qt/6.8.2/mingw_64/include/QtCore/qdatetime.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qdebug.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qendian.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qexceptionhandling.h \
@@ -45,12 +58,14 @@ C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/front
   C:/Qt/6.8.2/mingw_64/include/QtCore/qglobalstatic.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qhash.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qhashfunctions.h \
+  C:/Qt/6.8.2/mingw_64/include/QtCore/qiodevice.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qiodevicebase.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qiterable.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qiterator.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qlatin1stringview.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qline.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qlist.h \
+  C:/Qt/6.8.2/mingw_64/include/QtCore/qlocale.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qlogging.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qmalloc.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qmap.h \
@@ -114,6 +129,7 @@ C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/front
   C:/Qt/6.8.2/mingw_64/include/QtCore/qtversionchecks.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qtypeinfo.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qtypes.h \
+  C:/Qt/6.8.2/mingw_64/include/QtCore/qurl.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qutf8stringview.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qvariant.h \
   C:/Qt/6.8.2/mingw_64/include/QtCore/qvarlengtharray.h \
@@ -145,6 +161,27 @@ C:/Users/devyo/Development/School/GearworksSoftware/BSS-Application-System/front
   C:/Qt/6.8.2/mingw_64/include/QtGui/qtransform.h \
   C:/Qt/6.8.2/mingw_64/include/QtGui/qwindowdefs.h \
   C:/Qt/6.8.2/mingw_64/include/QtGui/qwindowdefs_win.h \
+  C:/Qt/6.8.2/mingw_64/include/QtNetwork/QNetworkAccessManager \
+  C:/Qt/6.8.2/mingw_64/include/QtNetwork/QNetworkReply \
+  C:/Qt/6.8.2/mingw_64/include/QtNetwork/QNetworkRequest \
+  C:/Qt/6.8.2/mingw_64/include/QtNetwork/QSslConfiguration \
+  C:/Qt/6.8.2/mingw_64/include/QtNetwork/QSslPreSharedKeyAuthenticator \
+  C:/Qt/6.8.2/mingw_64/include/QtNetwork/qabstractsocket.h \
+  C:/Qt/6.8.2/mingw_64/include/QtNetwork/qhostaddress.h \
+  C:/Qt/6.8.2/mingw_64/include/QtNetwork/qhttpheaders.h \
+  C:/Qt/6.8.2/mingw_64/include/QtNetwork/qnetworkaccessmanager.h \
+  C:/Qt/6.8.2/mingw_64/include/QtNetwork/qnetworkreply.h \
+  C:/Qt/6.8.2/mingw_64/include/QtNetwork/qnetworkrequest.h \
+  C:/Qt/6.8.2/mingw_64/include/QtNetwork/qssl.h \
+  C:/Qt/6.8.2/mingw_64/include/QtNetwork/qsslcertificate.h \
+  C:/Qt/6.8.2/mingw_64/include/QtNetwork/qsslconfiguration.h \
+  C:/Qt/6.8.2/mingw_64/include/QtNetwork/qsslerror.h \
+  C:/Qt/6.8.2/mingw_64/include/QtNetwork/qsslpresharedkeyauthenticator.h \
+  C:/Qt/6.8.2/mingw_64/include/QtNetwork/qsslsocket.h \
+  C:/Qt/6.8.2/mingw_64/include/QtNetwork/qtcpsocket.h \
+  C:/Qt/6.8.2/mingw_64/include/QtNetwork/qtnetwork-config.h \
+  C:/Qt/6.8.2/mingw_64/include/QtNetwork/qtnetworkexports.h \
+  C:/Qt/6.8.2/mingw_64/include/QtNetwork/qtnetworkglobal.h \
   C:/Qt/6.8.2/mingw_64/include/QtWidgets/QMainWindow \
   C:/Qt/6.8.2/mingw_64/include/QtWidgets/qmainwindow.h \
   C:/Qt/6.8.2/mingw_64/include/QtWidgets/qsizepolicy.h \

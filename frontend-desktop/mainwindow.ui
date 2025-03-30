@@ -648,6 +648,12 @@
               <bool>true</bool>
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_4">
+              <property name="leftMargin">
+               <number>35</number>
+              </property>
+              <property name="rightMargin">
+               <number>35</number>
+              </property>
               <item>
                <widget class="QLabel" name="welcome_page_heading">
                 <property name="font">
@@ -659,10 +665,113 @@
                  </font>
                 </property>
                 <property name="text">
-                 <string>  Welcome Back, </string>
+                 <string>Welcome Back, </string>
                 </property>
                 <property name="h1" stdset="0">
                  <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="register_applicant_button_2">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>50</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>80</width>
+                  <height>40</height>
+                 </size>
+                </property>
+                <property name="palette">
+                 <palette>
+                  <active>
+                   <colorrole role="Button">
+                    <brush brushstyle="SolidPattern">
+                     <color alpha="255">
+                      <red>2</red>
+                      <green>115</green>
+                      <blue>74</blue>
+                     </color>
+                    </brush>
+                   </colorrole>
+                   <colorrole role="Text">
+                    <brush brushstyle="SolidPattern">
+                     <color alpha="255">
+                      <red>255</red>
+                      <green>255</green>
+                      <blue>255</blue>
+                     </color>
+                    </brush>
+                   </colorrole>
+                  </active>
+                  <inactive>
+                   <colorrole role="Button">
+                    <brush brushstyle="SolidPattern">
+                     <color alpha="255">
+                      <red>2</red>
+                      <green>115</green>
+                      <blue>74</blue>
+                     </color>
+                    </brush>
+                   </colorrole>
+                   <colorrole role="Text">
+                    <brush brushstyle="SolidPattern">
+                     <color alpha="255">
+                      <red>255</red>
+                      <green>255</green>
+                      <blue>255</blue>
+                     </color>
+                    </brush>
+                   </colorrole>
+                  </inactive>
+                  <disabled>
+                   <colorrole role="Button">
+                    <brush brushstyle="SolidPattern">
+                     <color alpha="107">
+                      <red>255</red>
+                      <green>255</green>
+                      <blue>255</blue>
+                     </color>
+                    </brush>
+                   </colorrole>
+                   <colorrole role="ButtonText">
+                    <brush brushstyle="SolidPattern">
+                     <color alpha="135">
+                      <red>255</red>
+                      <green>255</green>
+                      <blue>255</blue>
+                     </color>
+                    </brush>
+                   </colorrole>
+                  </disabled>
+                 </palette>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Montserrat</family>
+                  <pointsize>15</pointsize>
+                  <italic>false</italic>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Back</string>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
+                </property>
+                <property name="isBigButton" stdset="0">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>

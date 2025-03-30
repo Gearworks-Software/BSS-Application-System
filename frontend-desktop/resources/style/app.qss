@@ -12,10 +12,10 @@
 QWidget {
     font-size: 11pt; /* Converted from 14px */
     font-family: 'Montserrat';
-    color: #333333;
+    color: #404040;
+    /* color: #333333; */
 }
 QWidget[isPage="true"] {
-    background-color: #dac;
     padding:0;
     margin:0;
 }
@@ -25,18 +25,19 @@ QFrame {
 }
 QFrame[isNavbar="true"] {
     /* background-color: #e6e6d2; */
-    background-color: #3A6749;
+    background-color: #BABABA;
     font-size: 37pt; /* Converted from 50px */
     font-family: 'Abhaya Libre';
 }
 
 /* Buttons */
 QPushButton {
-    background-color: #02734a;
-    color: #ffffff;
-    border: 2px solid #9c194334;
+    background-color: #e7edf8;
+    /* color: #ffffff; */
+    border: 2px solid #5a85e0;
+    /* border: 2px solid #2D416C; */
     /* shadow */
-    border-radius: 4px;
+    border-radius: 10px;
     padding: 6px 12px;
     font-weight: 600;
 }
@@ -46,11 +47,13 @@ QPushButton[isBigButton="true"] {
 }
 
 QPushButton:hover {
-    background-color: #0056b3;
+    background-color: #50699f;
+    color: #fff;
+    border: 2px solid #141e33;
 }
 
 QPushButton:pressed {
-    background-color: #ff8a4f;
+    background-color: #3d5280;
 }
 
 /* Line Edits */

@@ -30,11 +30,14 @@ hashString('somePassword').then(async (hash) => {
     console.log('Password verification success:', await verifyHash('somePasswordhetd', hash));
 });
 
-// Start the server
 server.get('/', (req, res) => {
 	res.send('Hello World!');
 });
+server.get('/login', (req, res) => {
+	res.send('Logged In!');
+});
 
+// Start the server
 server.listen(port, () => {
 	console.log(`Server listening at http://localhost:${port}`);
 });

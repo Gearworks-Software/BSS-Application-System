@@ -2,21 +2,25 @@
 #include <QDebug>
 #include <QFile>
 #include "ui_mainwindow.h"
-#include <iostream>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    initFlags();
+    // Setup window
     ui->setupUi(this);
-    
     ui->stackedWidget->setCurrentIndex(0);
-    
     initStyle();
+    initFlags();
 
-    // Connect signal handlers
+    // Setup Networking
+    initHttpClient("127.0.0.1", "3080");
+
+    // Connect remaining signal handlers
     connect(ui->login_button, SIGNAL(clicked()), this, SLOT(on_login_button_Clicked()));
+    QList<QPushButton*> buttons = this->findChildren<QPushButton*>();
+    for (QPushButton button in buttons)
 }
 
 MainWindow::~MainWindow()
@@ -35,6 +39,7 @@ void MainWindow::on_login_button_Clicked()
     qDebug() << "Login button clicked";
     ui->stackedWidget->setCurrentIndex(1);
     ui->welcome_page_heading->setText(ui->welcome_page_heading->text() + "user");
+    sendHttpRequest("login");
 }
 
 void MainWindow::initStyle()
@@ -50,4 +55,36 @@ void MainWindow::initStyle()
     file.open(QFile::ReadOnly);
     QString styleSheet = QLatin1String(file.readAll());
     this->setStyleSheet(styleSheet);
+}
+
+void MainWindow::initHttpClient(QString hostIP, QString hostPort)
+{
+    this->hostIP = hostIP;
+    this->hostPort = hostPort;
+    networkManager = new QNetworkAccessManager();
+    QObject::connect(
+        networkManager, 
+        SIGNAL(finished(QNetworkReply*)), 
+        this,
+        SLOT(on_networkManager_Finished(QNetworkReply*))
+    );
+}
+
+void MainWindow::on_networkManager_Finished(QNetworkReply *reply)
+{
+    if (reply->error()) {
+        qDebug() << reply->errorString();
+        return;
+    }
+
+    QString answer = reply->readAll();
+
+    qDebug() << "Network Manager:" << answer;
+}
+
+void MainWindow::sendHttpRequest(QString endpoint) {
+    QString httpRequest = "http://"+hostIP+":"+hostPort+"/"+endpoint;
+    qDebug() << "Http request: " << httpRequest;
+    networkRequest.setUrl(QUrl(httpRequest));
+    networkManager->get(networkRequest);
 }
