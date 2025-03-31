@@ -5,7 +5,7 @@
 }
 
 /* Application Window */
-.QMainWindow, .QMessageBox {
+.QMainWindow, .QMessageBox, .QFrame {
     background-color: #f5f5f5;
 }
 
@@ -20,9 +20,6 @@ QWidget[isPage="true"] {
     margin:0;
 }
 
-QFrame {
-    background-color: #f5f5f5;
-}
 QFrame[isNavbar="true"] {
     /* background-color: #e6e6d2; */
     background-color: #BABABA;
@@ -31,16 +28,13 @@ QFrame[isNavbar="true"] {
 }
 QFrame#gradient_frame {
     background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-                stop:0 white,stop:1 green);
+                stop:0 #f5f5f5,stop:1 #02734a);
 }
 
 /* Buttons */
 QPushButton {
-    background-color: #e7edf8;
-    /* color: #ffffff; */
-    border: 2px solid #5a85e0;
-    /* border: 2px solid #2D416C; */
-    /* shadow */
+    background-color: #e8f3ee;
+    border: 1px solid #02734a;
     border-radius: 10px;
     padding: 6px 12px;
     font-weight: 600;
@@ -49,15 +43,16 @@ QPushButton[isBigButton="true"] {
     /* font-weight: 800; */
     font-size: 18pt
 }
-
+QPushButton[isBackButton="true"] {
+    background-color: #e8f3ee;
+}
 QPushButton:hover {
-    background-color: #5a85e0;
+    background-color: #02734a;
     color: #fff;
 }
-
 QPushButton:pressed {
-    background-color: #6a80ae;
-    border: 2px solid #6a80ae;
+    background-color: #025e3c;
+    border: 2px solid #025e3c;
 }
 
 /* Line Edits */
