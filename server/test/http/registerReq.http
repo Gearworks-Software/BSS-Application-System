@@ -14,9 +14,9 @@ POST http://localhost:3080/register
 content-type: application/json
 
 {
-    "fName": "Devyon", 
-    "lName": "Lozano", 
+    "fName": "Kieran", 
+    "lName": "Allen", 
     "role": "admin", 
-    "email": "devyonlozano@gmail.com", 
-    "password": "devlozgwsw"
+    "email": "kieranallen@gearworks.com", 
+    "password": "kieallgwsw"
 }
