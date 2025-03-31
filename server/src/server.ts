@@ -5,6 +5,7 @@ import express, { Request, Response } from 'express';
 import router from './routers/apiRouter'
 import 'dotenv/config'
 import { Query } from 'mysql2/typings/mysql/lib/protocol/sequences/Query';
+import { time } from 'console';
 
 const server = express();
 server.use(express.json());
@@ -46,7 +47,7 @@ server.post('/login', async (req: Request, res: Response) => {
 
 		// Check if record with email exists
 		const [rows]: [mysql.RowDataPacket[], mysql.FieldPacket[]] = await dbPool.execute(
-			'SELECT * FROM `users` WHERE `email` = ?',
+			'SELECT * FROM `internal_users` WHERE `email` = ?',
 			[email]
 		);
 		if (rows.length === 0) {
@@ -68,7 +69,6 @@ server.post('/login', async (req: Request, res: Response) => {
 });
 server.post('/register', async (req: Request, res: Response) => {
 	console.log('REGISTER REQUEST')
-	console.log(req.body);
 	try {
 		// Check if body contains all required properties
 		const { fName, lName, role, email, password } = req.body;
@@ -79,7 +79,7 @@ server.post('/register', async (req: Request, res: Response) => {
 
 		// Check if user already exists
 		const [rows]: [mysql.RowDataPacket[], mysql.FieldPacket[]] = await dbPool.execute(
-			'SELECT * FROM `users` WHERE `email` = ?',
+			'SELECT * FROM `internal_users` WHERE `email` = ?',
 			[email]
 		);
 		if (rows.length > 0) {
@@ -91,7 +91,7 @@ server.post('/register', async (req: Request, res: Response) => {
 
 		// Add new user to database
 		const [inserted] = await dbPool.execute<ResultSetHeader>(
-			'INSERT INTO `users` VALUES (DEFAULT, ?, ?, ?, ?, ?, DEFAULT)',
+			'INSERT INTO `internal_users` VALUES (DEFAULT, ?, ?, ?, ?, ?, DEFAULT)',
 			[fName, lName, role, email, hashedPassword],
 		)
 		if (inserted.affectedRows > 0) {	
@@ -103,6 +103,94 @@ server.post('/register', async (req: Request, res: Response) => {
 	}
 	catch (err) {
 		console.error('(/register Endpoint)', err);
+		res.status(500).send(`Unexpected server error. ${err}`);
+	}
+});
+server.post('/application', async (req: Request, res: Response) => {
+	console.log('CREATE APPLICATION REQUEST')
+	console.log(req.body);
+	try {
+		// Check if body contains all required properties
+		const { fName, lName, email, dateOfBirth } = req.body;
+		console.debug(fName, lName, email, dateOfBirth);
+		if ( !fName || !lName  || !email || !dateOfBirth ) {
+			return res.status(400).send('Malformed register request');
+		}
+
+		// Check if user already exists in external_users
+		console.log(email)
+		console.debug("before check")
+		let [usersRows]: [mysql.RowDataPacket[], mysql.FieldPacket[]] = await dbPool.execute(
+			'SELECT * FROM `external_users` WHERE `email` = ?',
+			[email]
+		);
+		console.debug("after check")
+		let userId: number;
+
+		// Create user in external_users if they don't exist
+		if (usersRows.length === 0) {
+			const password = lName+fName;
+			const hashedPassword = await hashString(password);
+			console.debug()
+			const [inserted] = await dbPool.execute<ResultSetHeader>(
+				'INSERT INTO `external_users` VALUES (DEFAULT, ?, ?, ?, ?, ?, DEFAULT)',
+				[fName, lName, dateOfBirth, email, hashedPassword]
+			);
+			if (inserted.affectedRows === 0) {
+				return res.status(500).send('Failed to create user');
+			}
+			userId = inserted.insertId;
+			res.write(`Created new user with password: ${password}\n`);
+		} else {
+			userId = usersRows[0].id;
+		}
+
+		// Check if user already has a pending application
+		const [applicationsRows]: [mysql.RowDataPacket[], mysql.FieldPacket[]] = await dbPool.execute(
+			'SELECT * FROM `applications` WHERE `user_id` = ? AND `status` = ?',
+			[userId, 'pending']
+		);
+		if (applicationsRows.length > 0) {
+			return res.status(409).send('User already has a pending application');
+		}
+
+		// Add new user to database
+		const [inserted] = await dbPool.execute<ResultSetHeader>(
+			'INSERT INTO `applications` VALUES (DEFAULT, ?, "Pending", DEFAULT)',
+			[userId],
+		)
+
+		if (inserted.affectedRows > 0) {	
+			console.log(inserted.affectedRows)
+			res.status(200).write("Submitted application successfully");
+			return res.end();
+		} else {
+			return res.status(500).send("Unexpected server error. User not registered");
+		}
+	}
+	catch (err) {
+		console.error('(POST /application Endpoint)', err);
+		res.status(500).send(`Unexpected server error. ${err}`);
+	}
+});
+server.get('/application', async (req: Request, res: Response) => {
+	console.log('CREATE APPLICATION REQUEST')
+	console.log(req.body);
+	try {
+		//TODO use where to implemenet filter and sort functions
+		// Query to select all applications
+		const [applicationsRows]: [mysql.RowDataPacket[], mysql.FieldPacket[]] = await dbPool.execute(
+			'SELECT * FROM `applications`'
+		);
+		if (applicationsRows.length < 0) {
+			return res.status(204).send('No applications found');
+		}
+
+		res.setHeader('Content-Type', 'application/json');
+		return res.status(200).send(JSON.stringify(applicationsRows));
+	}
+	catch (err) {
+		console.error('(POST /application Endpoint)', err);
 		res.status(500).send(`Unexpected server error. ${err}`);
 	}
 });
