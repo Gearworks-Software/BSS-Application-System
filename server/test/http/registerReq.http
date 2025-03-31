@@ -1,10 +1,22 @@
 # Example requests
 
-### Create item
+### Login 
 POST http://localhost:3080/login
 content-type: application/json
 
 {
     "email": "Example item",
     "password": "This is an example item."
+}
+
+###
+POST http://localhost:3080/register
+content-type: application/json
+
+{
+    "fName": "Devyon", 
+    "lName": "Lozano", 
+    "role": "admin", 
+    "email": "devyonlozano@gmail.com", 
+    "password": "devlozgwsw"
 }
