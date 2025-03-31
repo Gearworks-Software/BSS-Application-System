@@ -5,11 +5,11 @@
 }
 
 /* Application Window */
-.QMainWindow {
+.QMainWindow, .QMessageBox {
     background-color: #f5f5f5;
 }
 
-QWidget {
+QWidget, QMessageBox {
     font-size: 11pt; /* Converted from 14px */
     font-family: 'Montserrat';
     color: #404040;
@@ -29,6 +29,10 @@ QFrame[isNavbar="true"] {
     font-size: 37pt; /* Converted from 50px */
     font-family: 'Abhaya Libre';
 }
+QFrame#gradient_frame {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+                stop:0 white,stop:1 green);
+}
 
 /* Buttons */
 QPushButton {
@@ -47,13 +51,13 @@ QPushButton[isBigButton="true"] {
 }
 
 QPushButton:hover {
-    background-color: #50699f;
+    background-color: #5a85e0;
     color: #fff;
-    border: 2px solid #141e33;
 }
 
 QPushButton:pressed {
-    background-color: #3d5280;
+    background-color: #6a80ae;
+    border: 2px solid #6a80ae;
 }
 
 /* Line Edits */
