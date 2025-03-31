@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include <QDebug>
 #include <QFile>
+#include <QMessageBox>
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -85,7 +86,11 @@ void MainWindow::on_networkManager_Finished(QNetworkReply *reply)
 {
     if (reply->error())
     {
-        qDebug() << "Error: " << reply->readAll();
+        QString errorMessage = reply->readAll();
+        qDebug() << "Error: " << errorMessage;
+        QMessageBox messageBox;
+        messageBox.critical(this, "Error", errorMessage);
+        messageBox.setFixedSize(500, 200);
         return;
     }
 
