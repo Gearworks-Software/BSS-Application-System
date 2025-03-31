@@ -182,7 +182,7 @@ server.get('/application', async (req: Request, res: Response) => {
 		const [applicationsRows]: [mysql.RowDataPacket[], mysql.FieldPacket[]] = await dbPool.execute(
 			'SELECT * FROM `applications`'
 		);
-		if (applicationsRows.length < 0) {
+		if (applicationsRows.length === 0) {
 			return res.status(204).send('No applications found');
 		}
 
