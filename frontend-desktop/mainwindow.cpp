@@ -13,17 +13,17 @@ MainWindow::MainWindow(QWidget *parent)
     initFlags();
 
     // Setup Networking
-    initHttpClient("127.0.0.1", "3080");
+    initHttpClient("127.0.0.1", 3080);
 
     // Connect remaining signal handlers
     connect(ui->login_button, SIGNAL(clicked()), this, SLOT(on_login_button_Clicked()));
     QList<QPushButton *> buttons = this->findChildren<QPushButton *>();
     for (QPushButton *button : buttons)
     {
-        qDebug() << "debug: " << button->text() << button->property("isBackButton").toBool();
+        // qDebug() << "debug: " << button->text() << button->property("isBackButton").toBool();
         if (button->property("isBackButton").toBool())
         {
-            qDebug() << "debug: isbackbutton";
+            // qDebug() << "debug: isbackbutton";
             connect(button, SIGNAL(clicked()), this, SLOT(on_back_button_Clicked()));
         }
     }
@@ -42,22 +42,11 @@ void MainWindow::initFlags()
 
 void MainWindow::on_login_button_Clicked()
 {
-    ui->stackedWidget->setCurrentIndex(1);
-    ui->welcome_page_heading->setText(ui->welcome_page_heading->text() + "user");
-
     QJsonObject jsonObj;
     jsonObj["email"] = ui->email_field->text();
     jsonObj["password"] = ui->password_field->text();
     QJsonDocument jsonDoc(jsonObj);
     QByteArray data = jsonDoc.toJson();
-    // QByteArray data;
-    //     data.append(R"({\n{"email": ")")
-    //         .append(ui->email_field->text().toStdString())
-    //         .append("\", ")
-    //         .append(R"({"password": )")
-    //         .append(ui->password_field->text().toStdString())
-    //         .append("\n}");
-    qDebug() << data;
     sendHttpRequest(HTTP_METHOD::POST, "login", data);
 }
 
@@ -79,7 +68,7 @@ void MainWindow::initStyle()
     this->setStyleSheet(styleSheet);
 }
 
-void MainWindow::initHttpClient(QString hostIP, QString hostPort)
+void MainWindow::initHttpClient(QString hostIP, int hostPort)
 {
     this->hostIP = hostIP;
     this->hostPort = hostPort;
@@ -88,27 +77,41 @@ void MainWindow::initHttpClient(QString hostIP, QString hostPort)
         networkManager,
         SIGNAL(finished(QNetworkReply *)),
         this,
-        SLOT(on_networkManager_Finished(QNetworkReply *)));
+        SLOT(on_networkManager_Finished(QNetworkReply *))
+    );
 }
 
 void MainWindow::on_networkManager_Finished(QNetworkReply *reply)
 {
     if (reply->error())
     {
-        qDebug() << reply->errorString();
+        qDebug() << "Error: " << reply->readAll();
         return;
     }
 
-    QString answer = reply->readAll();
+    QString response = reply->readAll();
+    qDebug() << "Success: " << response;
 
-    qDebug() << "Network Manager:" << answer;
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(response.toUtf8());
+    if (networkRequest.url().path().endsWith("login")) 
+    {
+        ui->stackedWidget->setCurrentIndex(1);
+        ui->welcome_page_heading->setText(ui->welcome_page_heading->text() + "user");
+    }
+
+    reply->deleteLater();
 }
 
 void MainWindow::sendHttpRequest(HTTP_METHOD method, QString endpoint, QByteArray jsonObj)
 {
-    QString httpRequest = "http://" + hostIP + ":" + hostPort + "/" + endpoint;
-    qDebug() << "Http request: " << httpRequest;
-    networkRequest.setUrl(QUrl(httpRequest));
+    // QString httpRequest = "http://" + hostIP + ":" + hostPort + "/" + endpoint;
+    QUrl url;
+    url.setScheme("http");
+    url.setHost(hostIP);
+    url.setPort(hostPort);
+    url.setPath("/" + endpoint);
+    qDebug() << "Http request: " << url.toString();
+    networkRequest.setUrl(url);
     networkRequest.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
     switch (method)
     {
@@ -116,7 +119,6 @@ void MainWindow::sendHttpRequest(HTTP_METHOD method, QString endpoint, QByteArra
         networkManager->get(networkRequest);
         break;
     case HTTP_METHOD::POST:
-        qDebug() << jsonObj;
         networkManager->post(networkRequest, jsonObj);
         break;
     default:

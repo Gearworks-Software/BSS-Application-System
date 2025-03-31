@@ -27,7 +27,8 @@ private:
     Qt::WindowFlags flags;
     QNetworkAccessManager *networkManager;
     QNetworkRequest networkRequest;
-    QString hostIP, hostPort;
+    QString hostIP;
+    int hostPort;
     enum class HTTP_METHOD
     {
         GET,
@@ -40,7 +41,7 @@ public:
     ~MainWindow();
     void initFlags();
     void initStyle();
-    void initHttpClient(QString hostIP, QString hostPort);
+    void initHttpClient(QString hostIP, int hostPort);
     void sendHttpRequest(HTTP_METHOD METHOD, QString endpoint, QByteArray jsonObj);
 };
 #endif // MAINWINDOW_H
