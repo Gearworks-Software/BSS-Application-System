@@ -1,8 +1,9 @@
 import argon2 from 'argon2';
 import crypto from 'crypto';
-import mysql from 'mysql2/promise';
-import express from 'express';
+import mysql, { ResultSetHeader } from 'mysql2/promise';
+import express, { Request, Response } from 'express';
 import 'dotenv/config'
+
 const server = express();
 server.use(express.json());
 const port = 3080;
@@ -28,19 +29,19 @@ async function verifyHash(str: string, hash: string) {
 }
 
 hashString('somePassword').then(async (hash) => {
-    console.log('Hash + salt of the password:', hash)
-    console.log('Password verification success:', await verifyHash('somePasswordhetd', hash));
+	console.log('Hash + salt of the password:', hash)
+	console.log('Password verification success:', await verifyHash('somePasswordhetd', hash));
 });
 
 server.get('/', (req, res) => {
 	res.send('Hello World!');
 });
-server.post('/login', async (req, res) => {
-	res.send('Logged In!');
+
+server.post('/login', async (req: Request, res: Response) => {
+	console.log('LOGIN REQUEST')
 	console.log(req.body);
-	req.body
 	try {
-		const [results, fields] = await dbConnection.execute(
+		const [results, fields] = await dbPool.execute(
 			'SELECT * FROM `users` WHERE `email` = ?',
 			[req.body['email']]
 		)
@@ -50,34 +51,42 @@ server.post('/login', async (req, res) => {
 		console.error(err);
 	}
 });
-server.post('/login', async (req, res) => {
-	res.send('Logged In!');
+server.post('/register', async (req: Request, res: Response) => {
+	console.log('REGISTER REQUEST')
 	console.log(req.body);
-	req.body
 	try {
-		const [results, fields] = await dbConnection.execute(
+		// Check if body contains all required properties
+		let { fName, lName, role, email, password }= req.body;
+		console.debug(fName, lName, role, email, password);
+		if ( !fName || !lName || !role || !email || !password ) {
+			return res.status(400).send('Malformed register request');
+		}
+
+		// Check if user already exists
+		const [results, fields] = await dbPool.execute<ResultSetHeader>(
 			'SELECT * FROM `users` WHERE `email` = ?',
-			[req.body['email']]
+			[email]
+		);
+		if (!results) {
+			return res.status(409).send('User already exists');
+		}
+
+		// Hash password
+		const hashedPassword = await hashString(password);
+
+		// Add new user to database
+		const [inserted] = await dbPool.execute<ResultSetHeader>(
+			'INSERT INTO `users` VALUES (DEFAULT, ?, ?, ?, ?, ?, DEFAULT)',
+			[fName, lName, role, email, hashedPassword],
 		)
-		console.log(results);
-		console.log(fields);
-	} catch (err) {
-		console.error(err);
+		if (inserted.affectedRows > 0) {		
+			return res.status(200).send("Registered user successfully");
+		} else {
+			return res.status(500).send("Unexpected server error. User not registered");
+		}
 	}
-});
-server.post('/register', async (req, res) => {
-	res.send('Register request...');
-	console.log(req.body);
-	req.body
-	try {
-		const [results, fields] = await dbConnection.execute(
-			'SELECT * FROM `users` WHERE `email` = ?',
-			[req.body['email']]
-		)
-		console.log(results);
-		console.log(fields);
-	} catch (err) {
-		console.error(err);
+	catch (err) {
+		console.error('(/register Endpoint)', err);
 	}
 });
 
@@ -87,10 +96,12 @@ server.listen(port, () => {
 });
 
 // Establish connection to MySQL database
-const dbConnection = await mysql.createConnection({
+const dbPool = await mysql.createPool({
 	host: dbmsIP,
 	user: 'bss',
 	password: 'bss25',
-	database: 'application_system'
+	database: 'application_system',
+	waitForConnections: true,
+	connectionLimit: 50,
 });
 
