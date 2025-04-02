@@ -175,7 +175,7 @@ server.get('/application', async (req: Request, res: Response) => {
 	console.log('GET APPLICATIONS REQUEST')
 	console.log(req.body);
 	try {
-		//TODO use where to implemenet filter and sort functions
+		//TODO use where to implement filter and sort functions
 		// Query to select all applications
 		const [applicationsRows]: [mysql.RowDataPacket[], mysql.FieldPacket[]] = await dbPool.execute(
 			[
