@@ -184,8 +184,7 @@ server.get('/application', async (req: Request, res: Response) => {
 				'INNER JOIN external_users ON applications.user_id=external_users.user_id;'
 			].join('\n')
 		);
-		if (applicationsRows.length < 0) {
-			console.debug('no applications found')
+		if (applicationsRows.length === 0) {
 			return res.status(204).send('No applications found');
 		}
 		
