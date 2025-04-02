@@ -44,7 +44,7 @@ QPushButton[isBigButton="true"] {
     font-size: 18pt
 }
 QPushButton[isBackButton="true"] {
-    background-color: #e8f3ee;
+    /* background-color: #d7eae1; */
 }
 QPushButton:hover {
     background-color: #02734a;
@@ -55,17 +55,33 @@ QPushButton:pressed {
     border: 2px solid #025e3c;
 }
 
-/* Line Edits */
-QLineEdit {
+/* Inputs */
+QLineEdit, QDateEdit {
     border: 1px solid #ccc;
     border-radius: 2px;
     padding: 6px 10px;
     background-color: #fff;
 }
-
 QLineEdit:focus {
     border-color: #02734a;
     outline: none;
+}
+
+/* QDateEdit Popup */
+QAbstractItemView {
+    background-color: #fff;
+    border: 1px solid #02734a;
+    selection-background-color: #02734a;
+    selection-color: #fff;
+    outline: none;
+    font-size: 11pt;
+    font-family: 'Arial';
+}
+QTableView {
+    background-color: #f5f5f5;
+    alternate-background-color: #ffffff;
+    selection-background-color: #02734a;
+    color: #ffffff;
 }
 
 /* Labels */
@@ -92,12 +108,12 @@ QScrollBar:vertical, QScrollBar:horizontal {
 }
 
 QScrollBar::handle {
-    background: #007bff;
-    border-radius: 5px;
+    background: #02734a;
+    /* border-radius: 5px; */
 }
 
 QScrollBar::handle:hover {
-    background: #0056b3;
+    background: #025e3c;
 }
 
 QScrollBar::add-line, QScrollBar::sub-line {
