@@ -81,7 +81,7 @@ QTableView {
     background-color: #f5f5f5;
     alternate-background-color: #ffffff;
     selection-background-color: #02734a;
-    color: #ffffff;
+    /* color: #ffffff; */
 }
 
 /* Labels */
