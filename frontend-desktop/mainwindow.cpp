@@ -2,6 +2,7 @@
 #include <QDebug>
 #include <QFile>
 #include <QMessageBox>
+#include <QJsonArray>
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -9,7 +10,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     // Setup window
     ui->setupUi(this);
-    ui->stackedWidget->setCurrentIndex(0);
+    ui->init_stack->setCurrentIndex(0);
+    ui->app_stack->setCurrentIndex(0);
     initStyle();
     initFlags();
 
@@ -18,6 +20,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Connect remaining signal handlers
     connect(ui->login_button, SIGNAL(clicked()), this, SLOT(on_login_button_Clicked()));
+    connect(ui->register_applicant_button, SIGNAL(clicked()), this, SLOT(on_register_applicant_button_Clicked()));
+    connect(ui->view_applications_button, SIGNAL(clicked()), this, SLOT(on_view_applications_button_Clicked()));
+    connect(ui->review_application_button, SIGNAL(clicked()), this, SLOT(on_review_application_button_Clicked()));
+    connect(ui->app_submit_button, SIGNAL(clicked()), this, SLOT(on_app_submit_button_Clicked()));
     QList<QPushButton *> buttons = this->findChildren<QPushButton *>();
     for (QPushButton *button : buttons)
     {
@@ -43,12 +49,73 @@ void MainWindow::initFlags()
 
 void MainWindow::on_login_button_Clicked()
 {
+    // Debugging shortcut: Skip login if "debug" is entered
+    if (ui->email_field->text() == "debug") {
+        navigateTo(ui->application_page);
+        return;
+    }
     QJsonObject jsonObj;
     jsonObj["email"] = ui->email_field->text();
     jsonObj["password"] = ui->password_field->text();
     QJsonDocument jsonDoc(jsonObj);
     QByteArray data = jsonDoc.toJson();
-    sendHttpRequest(HTTP_METHOD::POST, "login", data);
+    sendHttpRequest(HTTP_METHOD::POST, "/login", data);
+}
+
+void MainWindow::on_register_applicant_button_Clicked()
+{
+    // Debugging shortcut: Skip login if "debug" is entered
+    if (ui->email_field->text() == "debug") {
+        navigateTo(ui->register_applicant_page);
+        return;
+    }
+    navigateTo(ui->register_applicant_page);
+    // TODO: Create logic to check if user is priviliged to enter certain tab
+    // QJsonObject jsonObj;
+    // jsonObj["email"] = ui->email_field->text();
+    // jsonObj["password"] = ui->password_field->text();
+    // QJsonDocument jsonDoc(jsonObj);
+    // QByteArray data = jsonDoc.toJson();
+    // sendHttpRequest(HTTP_METHOD::POST, "login", data);
+}
+
+void MainWindow::on_view_applications_button_Clicked()
+{
+    // Debugging shortcut: Skip login if "debug" is entered
+    // if (ui->email_field->text() == "debug") {
+    //     ui->app_stack->setCurrentIndex(1);
+    //     return;
+    // }
+    navigateTo(ui->view_applications_page);
+    // TODO: Create logic to check if user is priviliged to enter certain tab
+    sendHttpRequest(HTTP_METHOD::GET, "/application", nullptr);
+}
+
+void MainWindow::on_app_submit_button_Clicked()
+{
+    // TODO: Encapsulate debug skipping in compilation conditionals
+    // Debugging shortcut: Skip login if "debug" is entered
+    QJsonObject jsonObj;
+    jsonObj["fName"] = ui->app_fname_field->text();
+    jsonObj["lName"] = ui->app_lname_field->text();
+    jsonObj["email"] = ui->app_email_field->text();
+    jsonObj["dateOfBirth"] = ui->app_dob_field->date().toString("yyyy-MM-dd");
+    QJsonDocument jsonDoc(jsonObj);
+    QByteArray data = jsonDoc.toJson();
+    sendHttpRequest(HTTP_METHOD::POST, "/application", data);
+}
+
+void MainWindow::on_review_application_button_Clicked() {
+    auto selectedItems = ui->applications_table->selectedItems();
+    if (!selectedItems.isEmpty()) {
+        for (auto item : ui->applications_table->selectedItems()) 
+        {
+            qDebug() << item->text();
+        }
+        navigateTo(ui->review_page);
+        ui->review_fname_field->setText(selectedItems[1]->text());
+        ui->review_lname_field->setText(selectedItems[2]->text());
+    }
 }
 
 void MainWindow::initStyle()
@@ -95,13 +162,46 @@ void MainWindow::on_networkManager_Finished(QNetworkReply *reply)
     }
 
     QString response = reply->readAll();
-    qDebug() << "Success: " << response;
+    // qDebug() << "Success: " << response;
+    QJsonObject json = QJsonDocument::fromJson(response.toUtf8()).object();
+    QJsonArray jsonArray = json["data"].toArray();
 
-    QJsonDocument jsonDoc = QJsonDocument::fromJson(response.toUtf8());
-    if (networkRequest.url().path().endsWith("login")) 
+    if (reply->url().path().endsWith("/login")) 
     {
-        ui->stackedWidget->setCurrentIndex(1);
+        navigateTo(ui->home_page);
         ui->welcome_page_heading->setText(ui->welcome_page_heading->text() + "user");
+    }
+    if (networkRequest.url().path().endsWith("/application")) 
+    {
+        int http_code = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+        qDebug() << http_code;
+        if (http_code == 200) {
+            // qDebug() << "APPLICATIONS: " << json;
+            
+            int i = 0;
+            for (const QJsonValue &value : jsonArray) {
+                QJsonObject obj = value.toObject();
+                int applicationId = obj.contains("application_id") ? obj["application_id"].toInt() : -1;
+                QString fName = obj.contains("f_name") ? obj["f_name"].toString() : "";
+                QString lName = obj.contains("l_name") ? obj["l_name"].toString() : "";
+                QString status = obj.contains("status") ? obj["status"].toString() : "";
+                QDateTime submissionDate = obj.contains("submission_date") ? 
+                    QDateTime::fromString(obj["submission_date"].toString(), Qt::ISODate).toTimeZone(QTimeZone("America/Belize")): QDateTime();
+
+                ui->applications_table->setItem(i, 0, new QTableWidgetItem(QString::number(applicationId)));
+                ui->applications_table->setItem(i, 1, new QTableWidgetItem(fName));
+                ui->applications_table->setItem(i, 2, new QTableWidgetItem(lName));
+                ui->applications_table->setItem(i, 3, new QTableWidgetItem(submissionDate.toString()));
+                ui->applications_table->setItem(i, 4, new QTableWidgetItem(status));
+
+                i++;
+            }
+        } else {
+            QMessageBox messageBox;
+            messageBox.critical(this, "Error", response);
+            messageBox.setFixedSize(500, 200);
+        }
+        // ui->welcome_page_heading->setText(ui->welcome_page_heading->text() + "user");
     }
 
     reply->deleteLater();
@@ -114,7 +214,7 @@ void MainWindow::sendHttpRequest(HTTP_METHOD method, QString endpoint, QByteArra
     url.setScheme("http");
     url.setHost(hostIP);
     url.setPort(hostPort);
-    url.setPath("/" + endpoint);
+    url.setPath(endpoint);
     qDebug() << "Http request: " << url.toString();
     networkRequest.setUrl(url);
     networkRequest.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
@@ -133,9 +233,48 @@ void MainWindow::sendHttpRequest(HTTP_METHOD method, QString endpoint, QByteArra
 
 void MainWindow::on_back_button_Clicked()
 {
-    int currentIndex = ui->stackedWidget->currentIndex();
-    if (currentIndex > 0)
+    QWidget* currentPage = navigationStack.top();
+    // If user is on home page, use the initial QStackedWidget
+    if (currentPage == ui->home_page)
     {
-        ui->stackedWidget->setCurrentIndex(currentIndex-1);
+        ui->init_stack->setCurrentWidget(ui->login_page);
+    }
+    else
+    {
+        navigateBack();
+    }
+}
+
+void MainWindow::navigateTo(QWidget* toPage)
+{
+    qDebug() << "Navigating to:" << toPage->objectName();
+
+    QWidget* currentPage = navigationStack.isEmpty() ? nullptr : navigationStack.top();
+
+    // Determine if the target page belongs to init_stack
+    if (ui->init_stack->indexOf(toPage) != -1) {
+        ui->init_stack->setCurrentWidget(toPage);
+        navigationStack.push(ui->home_page);
+        return;  // Don't modify navigationStack for init_stack
+    } 
+
+    // Only track navigation if inside app_stack
+    if (ui->app_stack->indexOf(toPage) != -1) {
+        if (currentPage != toPage) {
+            navigationStack.push(toPage);
+        }
+        ui->app_stack->setCurrentWidget(toPage);
+    }
+}
+void MainWindow::navigateBack()
+{
+    qDebug() << "STACK:" << navigationStack << "\n";
+    qDebug() << "init_stack:" << ui->init_stack->children() << "\n";
+    qDebug() << "app_stack:" << ui->app_stack->children() << "\n";
+    if (navigationStack.size() > 1) {
+        navigationStack.pop();  // Remove current page
+        QWidget* lastPage = navigationStack.top();
+        ui->app_stack->setCurrentWidget(lastPage);
+        qDebug() << "Navigating to:" << lastPage->objectName();
     }
 }
