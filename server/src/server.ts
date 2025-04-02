@@ -4,8 +4,6 @@ import mysql, { QueryError, QueryResult, ResultSetHeader } from 'mysql2/promise'
 import express, { Request, Response } from 'express';
 import router from './routers/apiRouter'
 import 'dotenv/config'
-import { Query } from 'mysql2/typings/mysql/lib/protocol/sequences/Query';
-import { time } from 'console';
 
 const server = express();
 server.use(express.json());
@@ -96,7 +94,7 @@ server.post('/register', async (req: Request, res: Response) => {
 		)
 		if (inserted.affectedRows > 0) {	
 			console.log(inserted.affectedRows)
-			return res.status(200).send("Registered user successfully");
+			return res.status(201).send("Registered user successfully");
 		} else {
 			return res.status(500).send("Unexpected server error. User not registered");
 		}
@@ -114,7 +112,7 @@ server.post('/application', async (req: Request, res: Response) => {
 		const { fName, lName, email, dateOfBirth } = req.body;
 		console.debug(fName, lName, email, dateOfBirth);
 		if ( !fName || !lName  || !email || !dateOfBirth ) {
-			return res.status(400).send('Malformed register request');
+			return res.status(400).send('Malformed application request');
 		}
 
 		// Check if user already exists in external_users
@@ -162,7 +160,7 @@ server.post('/application', async (req: Request, res: Response) => {
 
 		if (inserted.affectedRows > 0) {	
 			console.log(inserted.affectedRows)
-			res.status(200).write("Submitted application successfully");
+			res.status(201).write("Submitted application successfully");
 			return res.end();
 		} else {
 			return res.status(500).send("Unexpected server error. User not registered");
@@ -174,20 +172,31 @@ server.post('/application', async (req: Request, res: Response) => {
 	}
 });
 server.get('/application', async (req: Request, res: Response) => {
-	console.log('CREATE APPLICATION REQUEST')
+	console.log('GET APPLICATIONS REQUEST')
 	console.log(req.body);
 	try {
 		//TODO use where to implemenet filter and sort functions
 		// Query to select all applications
 		const [applicationsRows]: [mysql.RowDataPacket[], mysql.FieldPacket[]] = await dbPool.execute(
-			'SELECT * FROM `applications`'
+			[
+				'SELECT external_users.f_name, external_users.l_name, applications.application_id,  applications.status, applications.submission_date',
+				'FROM `applications`',
+				'INNER JOIN external_users ON applications.user_id=external_users.user_id;'
+			].join('\n')
 		);
 		if (applicationsRows.length < 0) {
+			console.debug('no applications found')
 			return res.status(204).send('No applications found');
 		}
+		
+		const responseJSON = {
+			"data": applicationsRows
+		};
 
+		console.debug('sending applications json')
+		
 		res.setHeader('Content-Type', 'application/json');
-		return res.status(200).send(JSON.stringify(applicationsRows));
+		return res.status(200).json(responseJSON);
 	}
 	catch (err) {
 		console.error('(POST /application Endpoint)', err);
