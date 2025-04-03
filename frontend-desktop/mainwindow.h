@@ -27,13 +27,14 @@ private slots:
     void on_app_submit_button_Clicked();
     void on_review_application_button_Clicked();
     void on_back_button_Clicked();
+    void on_app_page_Changed();
 
 private:
     Ui::MainWindow *ui;
     Qt::WindowFlags flags;
     QStack<QWidget*> navigationStack;
     QNetworkAccessManager *networkManager;
-    QNetworkRequest networkRequest;
+    QNetworkReply *networkReply;
     QString hostIP;
     int hostPort;
     enum class HTTP_METHOD
@@ -48,9 +49,9 @@ public:
     ~MainWindow();
     void initFlags();
     void initStyle();
-    void initHttpClient(QString hostIP, int hostPort);
-    void sendHttpRequest(HTTP_METHOD METHOD, QString endpoint, QByteArray jsonObj);
     void navigateTo(QWidget* toPage);
     void navigateBack();
+    void initHttpClient(QString hostIP, int hostPort);
+    QNetworkReply*  sendHttpRequest(HTTP_METHOD METHOD, QString endpoint, QByteArray jsonObj);
 };
 #endif // MAINWINDOW_H

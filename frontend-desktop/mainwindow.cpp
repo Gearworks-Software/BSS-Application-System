@@ -2,6 +2,7 @@
 #include <QDebug>
 #include <QFile>
 #include <QMessageBox>
+#include <QMenuBar>
 #include <QJsonArray>
 #include "ui_mainwindow.h"
 
@@ -14,26 +15,21 @@ MainWindow::MainWindow(QWidget *parent)
     ui->app_stack->setCurrentIndex(0);
     initStyle();
     initFlags();
+    // QMenuBar menuBar(this);
+    // menuBar.
+    // menuBar;
 
     // Setup Networking
     initHttpClient("127.0.0.1", 3080);
 
     // Connect remaining signal handlers
     connect(ui->login_button, SIGNAL(clicked()), this, SLOT(on_login_button_Clicked()));
+    connect(ui->back_button, SIGNAL(clicked()), this, SLOT(on_back_button_Clicked()));
     connect(ui->register_applicant_button, SIGNAL(clicked()), this, SLOT(on_register_applicant_button_Clicked()));
     connect(ui->view_applications_button, SIGNAL(clicked()), this, SLOT(on_view_applications_button_Clicked()));
     connect(ui->review_application_button, SIGNAL(clicked()), this, SLOT(on_review_application_button_Clicked()));
     connect(ui->app_submit_button, SIGNAL(clicked()), this, SLOT(on_app_submit_button_Clicked()));
-    QList<QPushButton *> buttons = this->findChildren<QPushButton *>();
-    for (QPushButton *button : buttons)
-    {
-        // qDebug() << "debug: " << button->text() << button->property("isBackButton").toBool();
-        if (button->property("isBackButton").toBool())
-        {
-            // qDebug() << "debug: isbackbutton";
-            connect(button, SIGNAL(clicked()), this, SLOT(on_back_button_Clicked()));
-        }
-    }
+    connect(ui->app_stack, SIGNAL(currentChanged(int)), this, SLOT(on_app_page_Changed()));
 }
 
 MainWindow::~MainWindow()
@@ -102,7 +98,8 @@ void MainWindow::on_app_submit_button_Clicked()
     jsonObj["dateOfBirth"] = ui->app_dob_field->date().toString("yyyy-MM-dd");
     QJsonDocument jsonDoc(jsonObj);
     QByteArray data = jsonDoc.toJson();
-    sendHttpRequest(HTTP_METHOD::POST, "/application", data);
+    QNetworkReply* reply = sendHttpRequest(HTTP_METHOD::POST, "/application", data);
+    qDebug() << "REPLY FROM HTTP REQUEST: " << networkReply->readAll();
 }
 
 void MainWindow::on_review_application_button_Clicked() {
@@ -141,16 +138,17 @@ void MainWindow::initHttpClient(QString hostIP, int hostPort)
     this->hostIP = hostIP;
     this->hostPort = hostPort;
     networkManager = new QNetworkAccessManager();
-    connect(
-        networkManager,
-        SIGNAL(finished(QNetworkReply *)),
-        this,
-        SLOT(on_networkManager_Finished(QNetworkReply *))
-    );
+    // connect(
+    //     networkManager,
+    //     SIGNAL(finished(QNetworkReply *)),
+    //     this,
+    //     SLOT(on_networkManager_Finished(QNetworkReply *))
+    // );
 }
 
 void MainWindow::on_networkManager_Finished(QNetworkReply *reply)
 {
+    networkReply = reply;
     if (reply->error())
     {
         QString errorMessage = reply->readAll();
@@ -162,22 +160,23 @@ void MainWindow::on_networkManager_Finished(QNetworkReply *reply)
     }
 
     QString response = reply->readAll();
-    // qDebug() << "Success: " << response;
+    qDebug() << "Success: " << response;
     QJsonObject json = QJsonDocument::fromJson(response.toUtf8()).object();
     QJsonArray jsonArray = json["data"].toArray();
 
     if (reply->url().path().endsWith("/login")) 
     {
-        navigateTo(ui->home_page);
-        ui->welcome_page_heading->setText(ui->welcome_page_heading->text() + "user");
+        navigateTo(ui->application_page);
+        on_app_page_Changed();
     }
-    if (networkRequest.url().path().endsWith("/application")) 
+    if (reply->url().path().endsWith("/application")) 
     {
         int http_code = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
         qDebug() << http_code;
         if (http_code == 200) {
             // qDebug() << "APPLICATIONS: " << json;
-            
+            ui->applications_table->setRowCount(jsonArray.size());
+            ui->applications_table->resizeColumnsToContents();
             int i = 0;
             for (const QJsonValue &value : jsonArray) {
                 QJsonObject obj = value.toObject();
@@ -191,7 +190,7 @@ void MainWindow::on_networkManager_Finished(QNetworkReply *reply)
                 ui->applications_table->setItem(i, 0, new QTableWidgetItem(QString::number(applicationId)));
                 ui->applications_table->setItem(i, 1, new QTableWidgetItem(fName));
                 ui->applications_table->setItem(i, 2, new QTableWidgetItem(lName));
-                ui->applications_table->setItem(i, 3, new QTableWidgetItem(submissionDate.toString()));
+                ui->applications_table->setItem(i, 3, new QTableWidgetItem(submissionDate.toString("yyyy-MM-dd")));
                 ui->applications_table->setItem(i, 4, new QTableWidgetItem(status));
 
                 i++;
@@ -207,9 +206,9 @@ void MainWindow::on_networkManager_Finished(QNetworkReply *reply)
     reply->deleteLater();
 }
 
-void MainWindow::sendHttpRequest(HTTP_METHOD method, QString endpoint, QByteArray jsonObj)
+QNetworkReply* MainWindow::sendHttpRequest(HTTP_METHOD method, QString endpoint, QByteArray jsonObj)
 {
-    // QString httpRequest = "http://" + hostIP + ":" + hostPort + "/" + endpoint;
+    QNetworkRequest networkRequest;
     QUrl url;
     url.setScheme("http");
     url.setHost(hostIP);
@@ -221,10 +220,10 @@ void MainWindow::sendHttpRequest(HTTP_METHOD method, QString endpoint, QByteArra
     switch (method)
     {
     case HTTP_METHOD::GET:
-        networkManager->get(networkRequest);
+        return networkManager->get(networkRequest);
         break;
     case HTTP_METHOD::POST:
-        networkManager->post(networkRequest, jsonObj);
+        return networkManager->post(networkRequest, jsonObj);
         break;
     default:
         break;
@@ -276,5 +275,25 @@ void MainWindow::navigateBack()
         QWidget* lastPage = navigationStack.top();
         ui->app_stack->setCurrentWidget(lastPage);
         qDebug() << "Navigating to:" << lastPage->objectName();
+    }
+}
+
+void MainWindow::on_app_page_Changed() {
+    QWidget* currentPage = navigationStack.isEmpty() ? nullptr : navigationStack.top();
+    if (currentPage == ui->home_page) 
+    {
+        ui->app_header->setText("Welcome Back, " + ui->email_field->text());
+    }
+    if (currentPage == ui->view_applications_page) 
+    {
+        ui->app_header->setText("View Applications");
+    }
+    if (currentPage == ui->register_applicant_page) 
+    {
+        ui->app_header->setText("Register Applicant");
+    }
+    if (currentPage == ui->review_page) 
+    {
+        ui->app_header->setText("Review Application");
     }
 }
