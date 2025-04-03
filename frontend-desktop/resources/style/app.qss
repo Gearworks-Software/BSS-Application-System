@@ -7,7 +7,7 @@
 }
 
 /* Application Window */
-.QMainWindow, .QMessageBox, .QFrame {
+.QMainWindow, .QWidget, .QMessageBox, .QFrame {
     background-color: #f5f5f5;
 }
 
@@ -28,15 +28,17 @@ QFrame[isNavbar="true"] {
 }
 QFrame#gradient_frame {
     background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-                stop:0 #f5f5f5,stop:1 #02734a);
+                stop:0 #1A2C28,stop:1 #02734a);
+    /* background: #031712; */
 }
 
 /* Buttons */
 QPushButton {
-    background-color: #e8f3ee;
-    border: 1px solid #02734a;
-    border-radius: 10px;
-    padding: 6px 12px;
+    background-color: #06603e;
+    color: #fff;
+    border-radius: 19px;
+    /* padding: 6px 12px; */
+    padding: 10px 24px;
     font-weight: 600;
 }
 QPushButton[isBigButton="true"] {
@@ -45,14 +47,13 @@ QPushButton[isBigButton="true"] {
 }
 QPushButton[isBackButton="true"] {
     /* background-color: #d7eae1; */
+    background-color: #e8f3ee;
 }
 QPushButton:hover {
-    background-color: #02734a;
-    color: #fff;
+    background-color: #025e3c;
 }
 QPushButton:pressed {
-    background-color: #025e3c;
-    border: 2px solid #025e3c;
+    background-color: #034F2F;
 }
 
 /* Inputs */
