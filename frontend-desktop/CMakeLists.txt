@@ -14,6 +14,8 @@ qt_add_executable(frontend-desktop
     mainwindow.h
     mainwindow.ui
     rsrc.qrc
+    NetworkManager.cpp
+    NetworkManager.h
 )
 
 # qt_add_resources(frontend-desktop "resources"
