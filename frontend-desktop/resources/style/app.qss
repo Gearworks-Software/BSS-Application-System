@@ -16,10 +16,6 @@ QWidget, QMessageBox {
     font-size: 11pt; /* Converted from 14px */
     /* color: #333333; */
 }
-QWidget[isPage="true"] {
-    padding:0;
-    margin:0;
-}
 
 QFrame[isNavbar="true"] {
     /* background-color: #e6e6d2; */
@@ -27,9 +23,9 @@ QFrame[isNavbar="true"] {
     font-size: 37pt; /* Converted from 50px */
     font-family: 'Abhaya Libre';
 }
-QFrame#login_frame {
+/* QFrame#login_frame, QFrame#login_form {
     background-color: #090909;
-}
+} */
 QFrame#gradient_frame {
     background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
                 stop:0 #1A2C28,stop:1 #02734a);
@@ -49,9 +45,13 @@ QPushButton[isBigButton="true"] {
     /* font-weight: 800; */
     font-size: 18pt
 }
-QPushButton[isBackButton="true"] {
+QPushButton#back_button {
     /* background-color: #d7eae1; */
-    background-color: #e8f3ee;
+    /* background-color: #e8f3ee; */
+}
+QPushButton#color_theme_switch {
+    /* background-color: #252525; */
+    background: none;
 }
 QPushButton:hover {
     background-color: #025e3c;
@@ -106,13 +106,13 @@ QHeaderView::section {
 
 /* Labels */
 QLabel {
-    font-size: 11pt; /* Converted from 15px */
+    font-size: 13pt; /* Converted from 15px */
     /* color: #333; */
     background: none;
 }
 QLabel[h1="true"] {
     /* color: #000; */
-    font-size: 37pt; /* Converted from 50px */
+    font-size: 40pt; /* Converted from 50px */
     font-family: 'Abhaya Libre';
 }
 QLabel[h2="true"] {
