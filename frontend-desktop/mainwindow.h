@@ -34,7 +34,7 @@ private:
     Ui::MainWindow *ui;
     Qt::WindowFlags flags;
     QStack<QWidget*> navigationStack;
-    NetworkManager *_networkManager;
+    NetworkManager* _networkManager;
     QNetworkAccessManager *networkManager;
     QNetworkReply *networkReply;
     QString hostIP;

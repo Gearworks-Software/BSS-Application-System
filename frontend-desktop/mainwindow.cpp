@@ -53,7 +53,7 @@ void MainWindow::on_login_button_Clicked()
     jsonObj["password"] = ui->password_field->text();
     QJsonDocument jsonDoc(jsonObj);
     QByteArray data = jsonDoc.toJson();
-    sendHttpRequest(HTTP_METHOD::POST, "/login", data);
+    qDebug() << sendHttpRequest(HTTP_METHOD::POST, "/login", data);
 }
 
 void MainWindow::on_register_applicant_button_Clicked()
@@ -96,8 +96,10 @@ void MainWindow::on_app_submit_button_Clicked()
     jsonObj["dateOfBirth"] = ui->app_dob_field->date().toString("yyyy-MM-dd");
     QJsonDocument jsonDoc(jsonObj);
     QByteArray data = jsonDoc.toJson();
+    qDebug() << "DATA: " << data;
     // QNetworkReply* reply = sendHttpRequest(HTTP_METHOD::POST, "/application", data);
-    qDebug() << "REPLY FROM HTTP REQUEST: " << _networkManager->post("/login", data)->readAll();
+    QByteArray response = _networkManager->post("/application", data)->readAll();
+    qDebug() << "REPLY FROM HTTP REQUEST: " << response;
     // qDebug() << "REPLY FROM HTTP REQUEST: " << networkReply->readAll();
 }
 
@@ -137,6 +139,7 @@ void MainWindow::initHttpClient(QString hostIP, int hostPort)
     this->hostIP = hostIP;
     this->hostPort = hostPort;
     networkManager = new QNetworkAccessManager();
+    
     // connect(
     //     networkManager,
     //     SIGNAL(finished(QNetworkReply *)),

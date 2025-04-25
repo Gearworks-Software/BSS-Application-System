@@ -18,7 +18,7 @@ class NetworkManager : QObject
 
     private:
         QNetworkAccessManager* networkAccessManager;
-        QUrl url;
+        QUrl hostUrl;
         
 };
 #endif // NETWORKMANAGER_H
