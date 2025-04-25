@@ -8,6 +8,7 @@
 #include <QNetworkReply>
 #include <QJsonObject>
 #include <QJsonDocument>
+#include "NetworkManager.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -33,6 +34,7 @@ private:
     Ui::MainWindow *ui;
     Qt::WindowFlags flags;
     QStack<QWidget*> navigationStack;
+    NetworkManager *_networkManager;
     QNetworkAccessManager *networkManager;
     QNetworkReply *networkReply;
     QString hostIP;

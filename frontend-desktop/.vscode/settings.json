@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "*.embeddedhtml": "html",
         "*.ui": "cpp",
         "qapplication": "cpp",
         "iostream": "cpp",
@@ -75,6 +76,15 @@
         "typeinfo": "cpp",
         "variant": "cpp",
         "qmainwindow": "cpp",
-        "qmessagebox": "cpp"
+        "qmessagebox": "cpp",
+        "xhash": "cpp",
+        "xstring": "cpp",
+        "xtree": "cpp",
+        "qjsonarray": "cpp",
+        "xutility": "cpp",
+        "qnetworkaccessmanager": "cpp",
+        "qobject": "cpp",
+        "qnetworkreply": "cpp",
+        "qjsonobject": "cpp"
     }
 }

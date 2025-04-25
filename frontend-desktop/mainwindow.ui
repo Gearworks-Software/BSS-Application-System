@@ -634,13 +634,13 @@
              <property name="lineWidth">
               <number>1</number>
              </property>
-             <widget class="QPushButton" name="dark_theme_switch">
+             <widget class="QPushButton" name="color_theme_switch">
               <property name="geometry">
                <rect>
-                <x>440</x>
-                <y>30</y>
-                <width>80</width>
-                <height>35</height>
+                <x>10</x>
+                <y>10</y>
+                <width>50</width>
+                <height>50</height>
                </rect>
               </property>
               <property name="sizePolicy">
@@ -651,18 +651,39 @@
               </property>
               <property name="minimumSize">
                <size>
-                <width>80</width>
-                <height>35</height>
+                <width>40</width>
+                <height>40</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>50</width>
+                <height>50</height>
                </size>
               </property>
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="toolTip">
+               <string>Dark Theme / Light Theme</string>
               </property>
               <property name="text">
                <string/>
               </property>
               <property name="icon">
                <iconset theme="QIcon::ThemeIcon::WeatherClear"/>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="autoDefault">
+               <bool>false</bool>
+              </property>
+              <property name="default">
+               <bool>false</bool>
               </property>
               <property name="flat">
                <bool>true</bool>
@@ -794,7 +815,7 @@
               <item>
                <widget class="QPushButton" name="back_button">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                 <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -802,94 +823,19 @@
                 <property name="minimumSize">
                  <size>
                   <width>80</width>
-                  <height>30</height>
+                  <height>35</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>80</width>
-                  <height>40</height>
+                  <width>16777215</width>
+                  <height>16777215</height>
                  </size>
-                </property>
-                <property name="palette">
-                 <palette>
-                  <active>
-                   <colorrole role="Button">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>2</red>
-                      <green>115</green>
-                      <blue>74</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="Text">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>255</red>
-                      <green>255</green>
-                      <blue>255</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                  </active>
-                  <inactive>
-                   <colorrole role="Button">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>2</red>
-                      <green>115</green>
-                      <blue>74</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="Text">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>255</red>
-                      <green>255</green>
-                      <blue>255</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                  </inactive>
-                  <disabled>
-                   <colorrole role="Button">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="107">
-                      <red>255</red>
-                      <green>255</green>
-                      <blue>255</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                   <colorrole role="ButtonText">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="135">
-                      <red>255</red>
-                      <green>255</green>
-                      <blue>255</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                  </disabled>
-                 </palette>
-                </property>
-                <property name="font">
-                 <font>
-                  <family>Montserrat</family>
-                  <pointsize>15</pointsize>
-                  <italic>false</italic>
-                  <bold>false</bold>
-                 </font>
                 </property>
                 <property name="text">
                  <string>Back</string>
                 </property>
                 <property name="flat">
-                 <bool>true</bool>
-                </property>
-                <property name="isBackButton" stdset="0">
                  <bool>true</bool>
                 </property>
                </widget>
@@ -906,7 +852,7 @@
               <enum>QFrame::Shape::StyledPanel</enum>
              </property>
              <property name="currentIndex">
-              <number>2</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="home_page">
               <layout class="QGridLayout" name="gridLayout_3">
@@ -2637,7 +2583,9 @@ Application</string>
     </item>
    </layout>
   </widget>
+  <widget class="QStatusBar" name="statusBar"/>
  </widget>
+ <layoutdefault spacing="6" margin="0"/>
  <resources>
   <include location="rsrc.qrc"/>
  </resources>

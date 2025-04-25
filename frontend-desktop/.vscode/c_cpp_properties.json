@@ -2,7 +2,7 @@
     "configurations": [
         {
             "name": "Win32",
-            "includePath": [
+"includePath": [
                 "${workspaceFolder}/**",
                 "C:/Qt/6.8.2/mingw_64/include/QtWidgets",
                 "C:/Qt/6.8.2/mingw_64/include",

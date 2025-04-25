@@ -4,10 +4,11 @@
 #include <QMessageBox>
 #include <QMenuBar>
 #include <QJsonArray>
+#include "NetworkManager.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow)
+    : QMainWindow(parent), ui(new Ui::MainWindow), _networkManager(new NetworkManager(this, "127.0.0.1", 3080))
 {
     // Setup window
     ui->setupUi(this);
@@ -15,9 +16,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->app_stack->setCurrentIndex(0);
     initStyle();
     initFlags();
-    // QMenuBar menuBar(this);
-    // menuBar.
-    // menuBar;
 
     // Setup Networking
     initHttpClient("127.0.0.1", 3080);
@@ -98,8 +96,9 @@ void MainWindow::on_app_submit_button_Clicked()
     jsonObj["dateOfBirth"] = ui->app_dob_field->date().toString("yyyy-MM-dd");
     QJsonDocument jsonDoc(jsonObj);
     QByteArray data = jsonDoc.toJson();
-    QNetworkReply* reply = sendHttpRequest(HTTP_METHOD::POST, "/application", data);
-    qDebug() << "REPLY FROM HTTP REQUEST: " << networkReply->readAll();
+    // QNetworkReply* reply = sendHttpRequest(HTTP_METHOD::POST, "/application", data);
+    qDebug() << "REPLY FROM HTTP REQUEST: " << _networkManager->post("/login", data)->readAll();
+    // qDebug() << "REPLY FROM HTTP REQUEST: " << networkReply->readAll();
 }
 
 void MainWindow::on_review_application_button_Clicked() {
@@ -226,6 +225,7 @@ QNetworkReply* MainWindow::sendHttpRequest(HTTP_METHOD method, QString endpoint,
         return networkManager->post(networkRequest, jsonObj);
         break;
     default:
+        return nullptr;
         break;
     }
 }

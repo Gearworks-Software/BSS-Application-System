@@ -20,6 +20,10 @@ QNetworkReply* NetworkManager::post(QString endpoint, QByteArray body, QJsonObje
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
     QNetworkReply *reply = networkAccessManager->post(request, body);
 
+    QEventLoop loop;
+    connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+    loop.exec();
+
     return reply;
 }
 
@@ -39,6 +43,10 @@ QNetworkReply* NetworkManager::get(QString endpoint, QJsonObject *query)
 
     QNetworkRequest request(targetUrl);
     QNetworkReply *reply = networkAccessManager->get(request);
+
+    QEventLoop loop;
+    connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+    loop.exec();
     
     return reply;
 }
