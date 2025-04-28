@@ -8,6 +8,7 @@
 #include <QNetworkReply>
 #include <QJsonObject>
 #include <QJsonDocument>
+#include <QtMultimedia>
 #include "NetworkManager.h"
 
 QT_BEGIN_NAMESPACE
@@ -30,6 +31,8 @@ private slots:
 	void on_view_applications_button_Clicked();
 	void updateApplicationsList();
 	void on_app_submit_button_Clicked();
+	void on_scan_document_Clicked();
+	void on_refresh_camera_button_Clicked();
 	void on_review_application_button_Clicked();
 	void on_back_button_Clicked();
 	void on_app_page_Changed();
@@ -43,6 +46,10 @@ private:
 	QNetworkReply *networkReply;
 	QString hostIP;
 	QString currentTheme;
+    QCamera *camera = nullptr;
+    QMediaCaptureSession mediaCaptureSession;
+	QImageCapture *imageCapture = nullptr;
+	QByteArray currentImageData;
 	int hostPort;
 	enum class HTTP_METHOD
 	{

@@ -5,7 +5,6 @@
 #include <QMenuBar>
 #include <QJsonArray>
 #include <QDesktopServices>
-#include <QTemporaryFile>
 #include "NetworkManager.h"
 #include "ui_mainwindow.h"
 
@@ -27,12 +26,17 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->color_theme_toggle, SIGNAL(clicked()), this, SLOT(toggleColorTheme()));
     connect(ui->open_documentation_button, SIGNAL(clicked()), this, SLOT(openDocumentation()));
     connect(ui->login_button, SIGNAL(clicked()), this, SLOT(on_login_button_Clicked()));
+
     connect(ui->back_button, SIGNAL(clicked()), this, SLOT(on_back_button_Clicked()));
+    connect(ui->app_stack, SIGNAL(currentChanged(int)), this, SLOT(on_app_page_Changed()));
+
     connect(ui->register_applicant_button, SIGNAL(clicked()), this, SLOT(on_register_applicant_button_Clicked()));
+    connect(ui->app_submit_button, SIGNAL(clicked()), this, SLOT(on_app_submit_button_Clicked()));
+    connect(ui->scan_document_button, SIGNAL(clicked()), this, SLOT(on_scan_document_Clicked()));
+
     connect(ui->view_applications_button, SIGNAL(clicked()), this, SLOT(on_view_applications_button_Clicked()));
     connect(ui->review_application_button, SIGNAL(clicked()), this, SLOT(on_review_application_button_Clicked()));
-    connect(ui->app_submit_button, SIGNAL(clicked()), this, SLOT(on_app_submit_button_Clicked()));
-    connect(ui->app_stack, SIGNAL(currentChanged(int)), this, SLOT(on_app_page_Changed()));
+    connect(ui->refresh_camera, SIGNAL(clicked()), this, SLOT(on_refresh_camera_button_Clicked()));
 }
 
 MainWindow::~MainWindow()
@@ -96,20 +100,78 @@ void MainWindow::on_login_button_Clicked()
 
 void MainWindow::on_register_applicant_button_Clicked()
 {
-    // Debugging shortcut: Skip login if "debug" is entered
-    if (ui->email_field->text() == "debug")
-    {
-        navigateTo(ui->register_applicant_page);
+    navigateTo(ui->register_applicant_page);
+
+    // Ensure the camera is properly initialized and managed
+    if (!camera) {
+        const QList<QCameraDevice> cameras = QMediaDevices::videoInputs();
+        for (const QCameraDevice &cameraDevice : cameras)
+        {
+            qDebug() << cameraDevice.description();
+            if (cameraDevice.description() == "Integrated Camera") {
+                camera = new QCamera(cameraDevice, this);
+                break;
+            }
+        }
+    }
+
+    if (camera) {
+        camera->start(); // Start the camera
+        ui->video_widget->show();
+        // ui->video_widget->resize(640, 480);
+
+        // Configure the media capture session
+        mediaCaptureSession.setCamera(camera);
+        mediaCaptureSession.setVideoOutput(ui->video_widget);
+    } else {
+        qDebug() << "No camera found or failed to initialize.";
+        QMessageBox::warning(this, "Camera Error", "Unable to initialize the camera.");
+    }
+}
+void MainWindow::on_scan_document_Clicked()
+{
+    // Ensure the camera is active
+    if (!camera || !camera->isActive()) {
+        QMessageBox::warning(this, "Camera Error", "Camera is not active.");
         return;
     }
-    navigateTo(ui->register_applicant_page);
-    // TODO: Create logic to check if user is priviliged to enter certain tab
-    // QJsonObject jsonObj;
-    // jsonObj["email"] = ui->email_field->text();
-    // jsonObj["password"] = ui->password_field->text();
-    // QJsonDocument jsonDoc(jsonObj);
-    // QByteArray data = jsonDoc.toJson();
-    // sendHttpRequest(HTTP_METHOD::POST, "login", data);
+
+    // Initialize QImageCapture if not already done
+    if (!imageCapture) {
+        imageCapture = new QImageCapture(this);
+        mediaCaptureSession.setImageCapture(imageCapture);
+    }
+
+    // Capture the image
+    if (imageCapture->isReadyForCapture()) {
+        connect(imageCapture, &QImageCapture::imageCaptured, this, [this](int id, const QImage &image) {
+            Q_UNUSED(id);
+
+            // Pause the camera
+            if (camera->isActive()) {
+                camera->stop();
+            }
+
+            // Store the captured image
+            QBuffer buffer(&currentImageData);
+            buffer.open(QIODevice::WriteOnly);
+            image.save(&buffer, "JPEG"); // Save the image to the buffer in JPEG format
+
+            // Display the captured image in the video widget
+            QPixmap pixmap = QPixmap::fromImage(image);
+            QLabel *imagePreview = new QLabel(ui->video_widget);
+            imagePreview->setPixmap(pixmap.scaled(ui->video_widget->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+            imagePreview->setAlignment(Qt::AlignCenter);
+            imagePreview->setStyleSheet("background-color: black;");
+            imagePreview->show();
+
+            // QMessageBox::information(this, "Image Captured", "Image has been captured and displayed.");
+        });
+
+        imageCapture->capture();
+    } else {
+        QMessageBox::warning(this, "Capture Error", "Image capture is not ready.");
+    }
 }
 
 void MainWindow::on_view_applications_button_Clicked()
@@ -164,6 +226,7 @@ void MainWindow::on_app_submit_button_Clicked()
     jsonObj["lName"] = ui->app_lname_field->text();
     jsonObj["email"] = ui->app_email_field->text();
     jsonObj["dateOfBirth"] = ui->app_dob_field->date().toString("yyyy-MM-dd");
+    jsonObj["document"] = QString::fromLatin1(currentImageData.toBase64());
     QJsonDocument jsonDoc(jsonObj);
     QByteArray data = jsonDoc.toJson();
     qDebug() << "DATA: " << data;
@@ -316,10 +379,18 @@ void MainWindow::on_back_button_Clicked()
     if (currentPage == ui->home_page)
     {
         ui->init_stack->setCurrentWidget(ui->login_page);
-    }
+    } 
     else
     {
         navigateBack();
+    }
+
+    if (currentPage == ui->register_applicant_page) 
+    {
+        if (camera->isActive()) {
+            camera->stop();
+            ui->video_widget->hide();
+        }        
     }
 }
 
@@ -381,4 +452,20 @@ void MainWindow::on_app_page_Changed()
     {
         ui->app_header->setText("Review Application");
     }
+
+}
+void MainWindow::on_refresh_camera_button_Clicked()
+{
+    // Check if the camera exists and is not active
+    if (camera && !camera->isActive()) {
+        camera->start(); // Restart the camera
+        ui->video_widget->show(); // Ensure the video widget is visible
+        qDebug() << "Camera restarted.";
+    }
+    // } else if (!camera) {
+    //     QMessageBox::warning(this, "Camera Error", "No camera is initialized.");
+    // } else {
+    //     return;
+    //     // QMessageBox::information(this, "Camera Active", "The camera is already running.");
+    // }
 }

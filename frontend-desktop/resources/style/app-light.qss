@@ -55,10 +55,7 @@ QPushButton#back_button:hover {
     color: #000000;
     border: 1px solid #888888;
 }
-QPushButton#color_theme_toggle {
-    background: none;
-}
-QPushButton#open_documentation_button {
+QPushButton#color_theme_toggle, QPushButton#open_documentation_button, QPushButton#scan_document_button, QPushButton#refresh_camera {
     background: none;
 }
 QWidget#quick_menu {
@@ -138,4 +135,14 @@ QScrollBar::handle:hover {
 QScrollBar::add-line, QScrollBar::sub-line {
     background: none;
     border: none;
+}
+
+/* Video Widget */
+QFrame#video_frame {
+    background-color: #f0f0f0;
+    border: 2px solid #bbbbbb;
+    border-radius: 8px;
+}
+QFrame#video_frame:focus {
+    border: 2px solid #028858;
 }

@@ -54,10 +54,7 @@ QPushButton#back_button:hover {
     color: #ffffff;
     border: 1px solid #777777;
 }
-QPushButton#color_theme_toggle {
-    background: none;
-}
-QPushButton#open_documentation_button {
+QPushButton#color_theme_toggle, QPushButton#open_documentation_button, QPushButton#scan_document_button, QPushButton#refresh_camera {
     background: none;
 }
 QWidget#quick_menu {
@@ -71,8 +68,14 @@ QLineEdit, QDateEdit {
     background-color: #1e1e1e;
     color: #e0e0e0;
 }
-QLineEdit:focus, QDateEdit:focus {
+QLineEdit[readOnly=true] {
+    background-color: 1px solid #424242;
+}
+QLineEdit:focus[readOnly=false], QDateEdit:focus {
     border: 2px solid #02734a;
+}
+QLineEdit:focus[readOnly=true]{
+    border: 2px solid #5a5a5a;
 }
 
 /* QDateEdit Popup */
@@ -137,4 +140,14 @@ QScrollBar::handle:hover {
 QScrollBar::add-line, QScrollBar::sub-line {
     background: none;
     border: none;
+}
+
+/* Video Widget */
+QFrame#video_frame {
+    background-color: #1e1e1e;
+    border: 2px solid #444444;
+    border-radius: 8px;
+}
+QFrame#video_frame:focus {
+    border: 2px solid #02734a;
 }
