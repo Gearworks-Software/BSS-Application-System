@@ -3,102 +3,88 @@
     margin: 0;
     padding: 0;
     font-family: 'Montserrat';
-    color: #ffffff;
+    color: #e0e0e0;
 }
 
 /* Application Window */
 .QMainWindow, .QWidget, .QMessageBox, .QFrame {
-    /* background-color: #f5f5f5; */
-    background-color: #090909;
+    background-color: #121212;
+}
+QFrame#gradient_frame {
+    background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
+                stop: 0 #1A2C28, stop: 1 #02734a);
 }
 
 QWidget, QMessageBox {
-    font-size: 11pt; /* Converted from 14px */
-    /* color: #333333; */
+    font-size: 11pt;
+    color: #e0e0e0;
 }
 
+/* Navbar */
 QFrame[isNavbar="true"] {
-    /* background-color: #e6e6d2; */
-    background-color: #BABABA;
-    font-size: 37pt; /* Converted from 50px */
+    background-color: #1e1e1e;
+    font-size: 37pt;
     font-family: 'Abhaya Libre';
-}
-/* QFrame#login_frame, QFrame#login_form {
-    background-color: #090909;
-} */
-QFrame#gradient_frame {
-    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-                stop:0 #1A2C28,stop:1 #02734a);
-    /* background: #031712; */
 }
 
 /* Buttons */
 QPushButton {
-    background-color: #06603e;
-    color: #fff;
+    background-color: #1f5c3f;
+    color: #ffffff;
     border-radius: 19px;
-    /* padding: 6px 12px; */
     padding: 10px 24px;
     font-weight: 600;
 }
 QPushButton[isBigButton="true"] {
-    /* font-weight: 800; */
-    font-size: 18pt
-}
-QPushButton#back_button {
-    /* background-color: #d7eae1; */
-    /* background-color: #e8f3ee; */
-}
-QPushButton#color_theme_switch {
-    /* background-color: #252525; */
-    background: none;
+    font-size: 18pt;
 }
 QPushButton:hover {
-    background-color: #025e3c;
+    background-color: #184d34;
 }
 QPushButton:pressed {
-    background-color: #034F2F;
+    background-color: #133e2a;
+}
+QPushButton#back_button {
+    background-color: #2a2a2a;
+}
+QPushButton#color_theme_switch {
+    background: none;
 }
 
 /* Inputs */
 QLineEdit, QDateEdit {
-    border: 1px solid #D9D9D9;
-    /* border-radius: 1px; */
+    border: 1px solid #444444;
     padding: 6px 10px;
-    background-color: #252525;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
 }
-QLineEdit:focus {
-    border: 2px solid #f7f7f7;
-    /* border-color: #02734a; */
-    /* outline: none; */
+QLineEdit:focus, QDateEdit:focus {
+    border: 2px solid #02734a;
 }
 
 /* QDateEdit Popup */
 QAbstractItemView {
-    background-color: #fff;
+    background-color: #1e1e1e;
     border: 1px solid #02734a;
     selection-background-color: #02734a;
-    /* selection-color: #fff; */
-    outline: none;
+    color: #e0e0e0;
     font-size: 11pt;
     font-family: 'Arial';
 }
+
+/* Tables */
 QTableView {
-    background-color: #f5f5f5;
-    alternate-background-color: #ffffff;
-    color: #252525;
+    background-color: #1e1e1e;
+    alternate-background-color: #2a2a2a;
+    color: #e0e0e0;
 }
-
 QTableView::item:selected {
-    background-color: #e8f3ee;
-    color: #6ebe8c;
+    background-color: #02734a;
+    color: #ffffff;
 }
-
 QTableView::item {
-    border: 1px solid #ccc;
-    border-width: 1px 0px;
+    border: 1px solid #333333;
 }
-
 QHeaderView::section {
     background-color: #02734a;
     color: #ffffff;
@@ -108,36 +94,33 @@ QHeaderView::section {
 
 /* Labels */
 QLabel {
-    font-size: 13pt; /* Converted from 15px */
-    /* color: #333; */
+    font-size: 13pt;
+    color: #e0e0e0;
     background: none;
 }
 QLabel[h1="true"] {
-    /* color: #000; */
-    font-size: 40pt; /* Converted from 50px */
+    font-size: 40pt;
     font-family: 'Abhaya Libre';
+    color: #ffffff;
 }
 QLabel[h2="true"] {
     font-size: 20pt;
+    color: #ffffff;
 }
 
 /* Scrollbars */
 QScrollBar:vertical, QScrollBar:horizontal {
-    background: #eaeaea;
+    background: #1e1e1e;
     border: none;
     width: 10px;
     height: 10px;
 }
-
 QScrollBar::handle {
     background: #02734a;
-    /* border-radius: 5px; */
 }
-
 QScrollBar::handle:hover {
     background: #025e3c;
 }
-
 QScrollBar::add-line, QScrollBar::sub-line {
     background: none;
     border: none;
