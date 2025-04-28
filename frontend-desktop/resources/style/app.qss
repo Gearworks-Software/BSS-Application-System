@@ -86,10 +86,12 @@ QAbstractItemView {
 QTableView {
     background-color: #f5f5f5;
     alternate-background-color: #ffffff;
+    color: #252525;
 }
 
 QTableView::item:selected {
     background-color: #e8f3ee;
+    color: #6ebe8c;
 }
 
 QTableView::item {

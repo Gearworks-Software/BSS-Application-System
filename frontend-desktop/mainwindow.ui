@@ -174,7 +174,7 @@
     <item>
      <widget class="QStackedWidget" name="init_stack">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="login_page">
        <property name="autoFillBackground">
@@ -852,7 +852,7 @@
               <enum>QFrame::Shape::StyledPanel</enum>
              </property>
              <property name="currentIndex">
-              <number>0</number>
+              <number>2</number>
              </property>
              <widget class="QWidget" name="home_page">
               <layout class="QGridLayout" name="gridLayout_3">
@@ -1702,7 +1702,7 @@ Applicant</string>
                      <bool>true</bool>
                     </property>
                     <property name="selectionMode">
-                     <enum>QAbstractItemView::SelectionMode::NoSelection</enum>
+                     <enum>QAbstractItemView::SelectionMode::SingleSelection</enum>
                     </property>
                     <property name="selectionBehavior">
                      <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>

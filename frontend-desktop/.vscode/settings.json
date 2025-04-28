@@ -85,6 +85,27 @@
         "qnetworkaccessmanager": "cpp",
         "qobject": "cpp",
         "qnetworkreply": "cpp",
-        "qjsonobject": "cpp"
+        "qjsonobject": "cpp",
+        "qurlquery": "cpp",
+        "coroutine": "cpp",
+        "resumable": "cpp",
+        "filesystem": "cpp",
+        "ios": "cpp",
+        "locale": "cpp",
+        "queue": "cpp",
+        "ranges": "cpp",
+        "shared_mutex": "cpp",
+        "source_location": "cpp",
+        "xfacet": "cpp",
+        "xiosbase": "cpp",
+        "xlocale": "cpp",
+        "xlocbuf": "cpp",
+        "xlocinfo": "cpp",
+        "xlocmes": "cpp",
+        "xlocmon": "cpp",
+        "xlocnum": "cpp",
+        "xloctime": "cpp",
+        "xmemory": "cpp",
+        "xtr1common": "cpp"
     }
 }

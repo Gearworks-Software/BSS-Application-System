@@ -44,7 +44,8 @@ void MainWindow::initFlags()
 void MainWindow::on_login_button_Clicked()
 {
     // Debugging shortcut: Skip login if "debug" is entered
-    if (ui->email_field->text() == "debug") {
+    if (ui->email_field->text() == "debug")
+    {
         navigateTo(ui->application_page);
         return;
     }
@@ -59,7 +60,8 @@ void MainWindow::on_login_button_Clicked()
 void MainWindow::on_register_applicant_button_Clicked()
 {
     // Debugging shortcut: Skip login if "debug" is entered
-    if (ui->email_field->text() == "debug") {
+    if (ui->email_field->text() == "debug")
+    {
         navigateTo(ui->register_applicant_page);
         return;
     }
@@ -80,9 +82,39 @@ void MainWindow::on_view_applications_button_Clicked()
     //     ui->app_stack->setCurrentIndex(1);
     //     return;
     // }
-    navigateTo(ui->view_applications_page);
     // TODO: Create logic to check if user is priviliged to enter certain tab
-    sendHttpRequest(HTTP_METHOD::GET, "/application", nullptr);
+    navigateTo(ui->view_applications_page);
+    updateApplicationsList();
+}
+
+void MainWindow::updateApplicationsList()
+{
+    // sendHttpRequest(HTTP_METHOD::GET, "/application", nullptr);
+    QString response = _networkManager->get("/application", nullptr)->readAll();
+    qDebug() << "Success: " << response;
+    QJsonObject json = QJsonDocument::fromJson(response.toUtf8()).object();
+    QJsonArray jsonArray = json["data"].toArray();
+
+    ui->applications_table->setRowCount(jsonArray.size());
+    int i = 0;
+    for (const QJsonValue &value : jsonArray)
+    {
+        QJsonObject obj = value.toObject();
+        int applicationId = obj.contains("application_id") ? obj["application_id"].toInt() : -1;
+        QString fName = obj.contains("f_name") ? obj["f_name"].toString() : "";
+        QString lName = obj.contains("l_name") ? obj["l_name"].toString() : "";
+        QString status = obj.contains("status") ? obj["status"].toString() : "";
+        QDateTime submissionDate = obj.contains("submission_date") ? QDateTime::fromString(obj["submission_date"].toString(), Qt::ISODate).toTimeZone(QTimeZone("America/Belize")) : QDateTime();
+
+        ui->applications_table->setItem(i, 0, new QTableWidgetItem(QString::number(applicationId)));
+        ui->applications_table->setItem(i, 1, new QTableWidgetItem(fName));
+        ui->applications_table->setItem(i, 2, new QTableWidgetItem(lName));
+        ui->applications_table->setItem(i, 3, new QTableWidgetItem(submissionDate.toString("yyyy-MM-dd")));
+        ui->applications_table->setItem(i, 4, new QTableWidgetItem(status));
+
+        i++;
+    }
+    // ui->applications_table->resizeColumnsToContents();
 }
 
 void MainWindow::on_app_submit_button_Clicked()
@@ -97,16 +129,17 @@ void MainWindow::on_app_submit_button_Clicked()
     QJsonDocument jsonDoc(jsonObj);
     QByteArray data = jsonDoc.toJson();
     qDebug() << "DATA: " << data;
-    // QNetworkReply* reply = sendHttpRequest(HTTP_METHOD::POST, "/application", data);
+
     QByteArray response = _networkManager->post("/application", data)->readAll();
     qDebug() << "REPLY FROM HTTP REQUEST: " << response;
-    // qDebug() << "REPLY FROM HTTP REQUEST: " << networkReply->readAll();
 }
 
-void MainWindow::on_review_application_button_Clicked() {
+void MainWindow::on_review_application_button_Clicked()
+{
     auto selectedItems = ui->applications_table->selectedItems();
-    if (!selectedItems.isEmpty()) {
-        for (auto item : ui->applications_table->selectedItems()) 
+    if (!selectedItems.isEmpty())
+    {
+        for (auto item : ui->applications_table->selectedItems())
         {
             qDebug() << item->text();
         }
@@ -139,7 +172,7 @@ void MainWindow::initHttpClient(QString hostIP, int hostPort)
     this->hostIP = hostIP;
     this->hostPort = hostPort;
     networkManager = new QNetworkAccessManager();
-    
+
     // connect(
     //     networkManager,
     //     SIGNAL(finished(QNetworkReply *)),
@@ -166,38 +199,41 @@ void MainWindow::on_networkManager_Finished(QNetworkReply *reply)
     QJsonObject json = QJsonDocument::fromJson(response.toUtf8()).object();
     QJsonArray jsonArray = json["data"].toArray();
 
-    if (reply->url().path().endsWith("/login")) 
+    if (reply->url().path().endsWith("/login"))
     {
         navigateTo(ui->application_page);
         on_app_page_Changed();
     }
-    if (reply->url().path().endsWith("/application")) 
+    if (reply->url().path().endsWith("/application"))
     {
         int http_code = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
         qDebug() << http_code;
-        if (http_code == 200) {
+        if (http_code == 200)
+        {
             // qDebug() << "APPLICATIONS: " << json;
-            ui->applications_table->setRowCount(jsonArray.size());
-            ui->applications_table->resizeColumnsToContents();
-            int i = 0;
-            for (const QJsonValue &value : jsonArray) {
-                QJsonObject obj = value.toObject();
-                int applicationId = obj.contains("application_id") ? obj["application_id"].toInt() : -1;
-                QString fName = obj.contains("f_name") ? obj["f_name"].toString() : "";
-                QString lName = obj.contains("l_name") ? obj["l_name"].toString() : "";
-                QString status = obj.contains("status") ? obj["status"].toString() : "";
-                QDateTime submissionDate = obj.contains("submission_date") ? 
-                    QDateTime::fromString(obj["submission_date"].toString(), Qt::ISODate).toTimeZone(QTimeZone("America/Belize")): QDateTime();
+            // ui->applications_table->setRowCount(jsonArray.size());
+            // ui->applications_table->resizeColumnsToContents();
+            // int i = 0;
+            // for (const QJsonValue &value : jsonArray) {
+            //     QJsonObject obj = value.toObject();
+            //     int applicationId = obj.contains("application_id") ? obj["application_id"].toInt() : -1;
+            //     QString fName = obj.contains("f_name") ? obj["f_name"].toString() : "";
+            //     QString lName = obj.contains("l_name") ? obj["l_name"].toString() : "";
+            //     QString status = obj.contains("status") ? obj["status"].toString() : "";
+            //     QDateTime submissionDate = obj.contains("submission_date") ?
+            //         QDateTime::fromString(obj["submission_date"].toString(), Qt::ISODate).toTimeZone(QTimeZone("America/Belize")): QDateTime();
 
-                ui->applications_table->setItem(i, 0, new QTableWidgetItem(QString::number(applicationId)));
-                ui->applications_table->setItem(i, 1, new QTableWidgetItem(fName));
-                ui->applications_table->setItem(i, 2, new QTableWidgetItem(lName));
-                ui->applications_table->setItem(i, 3, new QTableWidgetItem(submissionDate.toString("yyyy-MM-dd")));
-                ui->applications_table->setItem(i, 4, new QTableWidgetItem(status));
+            //     ui->applications_table->setItem(i, 0, new QTableWidgetItem(QString::number(applicationId)));
+            //     ui->applications_table->setItem(i, 1, new QTableWidgetItem(fName));
+            //     ui->applications_table->setItem(i, 2, new QTableWidgetItem(lName));
+            //     ui->applications_table->setItem(i, 3, new QTableWidgetItem(submissionDate.toString("yyyy-MM-dd")));
+            //     ui->applications_table->setItem(i, 4, new QTableWidgetItem(status));
 
-                i++;
-            }
-        } else {
+            //     i++;
+            // }
+        }
+        else
+        {
             QMessageBox messageBox;
             messageBox.critical(this, "Error", response);
             messageBox.setFixedSize(500, 200);
@@ -208,7 +244,7 @@ void MainWindow::on_networkManager_Finished(QNetworkReply *reply)
     reply->deleteLater();
 }
 
-QNetworkReply* MainWindow::sendHttpRequest(HTTP_METHOD method, QString endpoint, QByteArray jsonObj)
+QNetworkReply *MainWindow::sendHttpRequest(HTTP_METHOD method, QString endpoint, QByteArray jsonObj)
 {
     QNetworkRequest networkRequest;
     QUrl url;
@@ -235,7 +271,7 @@ QNetworkReply* MainWindow::sendHttpRequest(HTTP_METHOD method, QString endpoint,
 
 void MainWindow::on_back_button_Clicked()
 {
-    QWidget* currentPage = navigationStack.top();
+    QWidget *currentPage = navigationStack.top();
     // If user is on home page, use the initial QStackedWidget
     if (currentPage == ui->home_page)
     {
@@ -247,55 +283,61 @@ void MainWindow::on_back_button_Clicked()
     }
 }
 
-void MainWindow::navigateTo(QWidget* toPage)
+void MainWindow::navigateTo(QWidget *toPage)
 {
     qDebug() << "Navigating to:" << toPage->objectName();
 
-    QWidget* currentPage = navigationStack.isEmpty() ? nullptr : navigationStack.top();
+    QWidget *currentPage = navigationStack.isEmpty() ? nullptr : navigationStack.top();
 
     // Determine if the target page belongs to init_stack
-    if (ui->init_stack->indexOf(toPage) != -1) {
+    if (ui->init_stack->indexOf(toPage) != -1)
+    {
         ui->init_stack->setCurrentWidget(toPage);
         navigationStack.push(ui->home_page);
-        return;  // Don't modify navigationStack for init_stack
-    } 
+        return; // Don't modify navigationStack for init_stack
+    }
 
     // Only track navigation if inside app_stack
-    if (ui->app_stack->indexOf(toPage) != -1) {
-        if (currentPage != toPage) {
+    if (ui->app_stack->indexOf(toPage) != -1)
+    {
+        if (currentPage != toPage)
+        {
             navigationStack.push(toPage);
         }
         ui->app_stack->setCurrentWidget(toPage);
     }
 }
+
 void MainWindow::navigateBack()
 {
     qDebug() << "STACK:" << navigationStack << "\n";
     qDebug() << "init_stack:" << ui->init_stack->children() << "\n";
     qDebug() << "app_stack:" << ui->app_stack->children() << "\n";
-    if (navigationStack.size() > 1) {
-        navigationStack.pop();  // Remove current page
-        QWidget* lastPage = navigationStack.top();
+    if (navigationStack.size() > 1)
+    {
+        navigationStack.pop(); // Remove current page
+        QWidget *lastPage = navigationStack.top();
         ui->app_stack->setCurrentWidget(lastPage);
         qDebug() << "Navigating to:" << lastPage->objectName();
     }
 }
 
-void MainWindow::on_app_page_Changed() {
-    QWidget* currentPage = navigationStack.isEmpty() ? nullptr : navigationStack.top();
-    if (currentPage == ui->home_page) 
+void MainWindow::on_app_page_Changed()
+{
+    QWidget *currentPage = navigationStack.isEmpty() ? nullptr : navigationStack.top();
+    if (currentPage == ui->home_page)
     {
         ui->app_header->setText("Welcome Back, " + ui->email_field->text());
     }
-    if (currentPage == ui->view_applications_page) 
+    if (currentPage == ui->view_applications_page)
     {
         ui->app_header->setText("View Applications");
     }
-    if (currentPage == ui->register_applicant_page) 
+    if (currentPage == ui->register_applicant_page)
     {
         ui->app_header->setText("Register Applicant");
     }
-    if (currentPage == ui->review_page) 
+    if (currentPage == ui->review_page)
     {
         ui->app_header->setText("Review Application");
     }
