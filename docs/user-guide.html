@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Proposal Document - User Guide</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #02734a;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #1f5c3f;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: #ffffff;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        h1, h2 {
+            font-family: 'Abhaya Libre', serif;
+            color: #ffffff;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+        }
+
+        th, td {
+            border: 1px solid #333333;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #02734a;
+            color: #ffffff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #2a2a2a;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #1e1e1e;
+        }
+
+        ol, ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        footer {
+            background-color: #1f5c3f;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Gearworks Software Ltd.</h1>
+        <h2>Belize Social Security (BSS) Card Application System</h2>
+    </header>
+
+    <nav>
+        <a href="#contents">Contents</a>
+        <a href="#clerk-guide">Clerk Guide</a>
+        <a href="#admin-guide">Administrator Guide</a>
+        <a href="#features">System Features</a>
+    </nav>
+
+    <main>
+        <section id="contents">
+            <h2>User Document Contents</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Section</th>
+                        <th>Page</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="#clerk-guide">Clerk Guide</a></td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#admin-guide">Administrator Guide</a></td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#features">System Features</a></td>
+                        <td>5</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="clerk-guide">
+            <h2>Clerk Guide: Applicant Registration Process</h2>
+            <ol>
+                <li>
+                    <strong>Login to the System</strong>
+                    <ul>
+                        <li>Access the staff portal.</li>
+                        <li>Enter your assigned email and password.</li>
+                        <li>Keep credentials confidential.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Navigate to 'Register Applicant'</strong>
+                    <ul>
+                        <li>Select "Register Applicant" from the dashboard.</li>
+                        <li>Access the registration interface.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Enter Applicant Information</strong>
+                    <ul>
+                        <li>Input all required details accurately.</li>
+                        <li>Ensure completeness to avoid delays.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Capture Applicant's Document</strong>
+                    <ul>
+                        <li>Ensure the camera is active and functional.</li>
+                        <li>Click "Scan Document" to capture the applicant's document.</li>
+                        <li>Preview the captured image and ensure clarity before proceeding.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Submit the Application</strong>
+                    <ul>
+                        <li>Verify information and click "Submit".</li>
+                        <li>Correct errors if necessary before resubmitting.</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+
+        <section id="admin-guide">
+            <h2>Administrator Guide: Applicant Review and Approval Process</h2>
+            <ol>
+                <li>
+                    <strong>Login to the System</strong>
+                    <ul>
+                        <li>Access the admin portal with your credentials.</li>
+                        <li>Keep credentials secure.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Navigate to 'View Applications'</strong>
+                    <ul>
+                        <li>Select "View Applications" from the dashboard.</li>
+                        <li>View submitted applications.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Select an Applicant</strong>
+                    <ul>
+                        <li>Choose an applicant and click "Review Applicant".</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Review Applicant Information</strong>
+                    <ul>
+                        <li>Examine all details and documents.</li>
+                        <li>Verify accuracy and eligibility.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Reject or Approve the Application</strong>
+                    <ul>
+                        <li>Approve if criteria are met.</li>
+                        <li>Reject if requirements are not met, providing reasons.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Navigate Between Pages</strong>
+                    <ul>
+                        <li>Use the navigation buttons to move between different sections of the application.</li>
+                        <li>Click "Back" to return to the previous page or "Home" to return to the dashboard.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Update Application Status</strong>
+                    <ul>
+                        <li>Approve or reject applications based on the provided details and documents.</li>
+                        <li>Provide reasons for rejection if applicable.</li>
+                        <li>Ensure the status is updated in the system for tracking purposes.</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+
+        <section id="features">
+            <h2>System Features</h2>
+            <ul>
+                <li><strong>Camera Integration:</strong> Capture and preview applicant documents directly within the application.</li>
+                <li><strong>Dynamic Navigation:</strong> Seamlessly navigate between pages using the application's stack-based navigation system.</li>
+                <li><strong>Real-Time Updates:</strong> View and manage application statuses with instant feedback.</li>
+                <li><strong>Theme Toggle:</strong> Switch between light and dark themes for better usability.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Gearworks Software Ltd. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>
