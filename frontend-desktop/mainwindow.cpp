@@ -4,6 +4,8 @@
 #include <QMessageBox>
 #include <QMenuBar>
 #include <QJsonArray>
+#include <QDesktopServices>
+#include <QTemporaryFile>
 #include "NetworkManager.h"
 #include "ui_mainwindow.h"
 
@@ -14,13 +16,16 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->init_stack->setCurrentIndex(0);
     ui->app_stack->setCurrentIndex(0);
-    initStyle();
+    currentTheme = "dark";
+    initStyle(currentTheme);
     initFlags();
 
     // Setup Networking
     initHttpClient("127.0.0.1", 3080);
 
     // Connect remaining signal handlers
+    connect(ui->color_theme_toggle, SIGNAL(clicked()), this, SLOT(toggleColorTheme()));
+    connect(ui->open_documentation_button, SIGNAL(clicked()), this, SLOT(openDocumentation()));
     connect(ui->login_button, SIGNAL(clicked()), this, SLOT(on_login_button_Clicked()));
     connect(ui->back_button, SIGNAL(clicked()), this, SLOT(on_back_button_Clicked()));
     connect(ui->register_applicant_button, SIGNAL(clicked()), this, SLOT(on_register_applicant_button_Clicked()));
@@ -41,6 +46,37 @@ void MainWindow::initFlags()
     // setWindowFlags(flags | Qt::SplashScreen);
 }
 
+void MainWindow::toggleColorTheme()
+{
+    if (currentTheme == "dark") currentTheme = "light";
+    else if (currentTheme == "light") currentTheme = "dark";
+
+    initStyle(currentTheme);
+}
+
+void MainWindow::openDocumentation()
+{
+    QString guideHtmlPath = ":/resources/web/user-guide.html";
+    QFile resourceFile(":/resources/web/user-guide.html");
+    if (resourceFile.open(QIODevice::ReadOnly))
+    {
+        QString filePath = "user-guide.html";
+        QFile file(filePath);
+        if (file.open(QIODevice::WriteOnly))
+        {
+            file.write(resourceFile.readAll());
+            resourceFile.close();
+            file.close();
+            QUrl url = QUrl::fromLocalFile(filePath);
+            if (QDesktopServices::openUrl(url))
+            {
+                return;
+            }
+        }
+    }
+    QMessageBox::warning(this, "Warning", "Unable to locate help file");
+}
+
 void MainWindow::on_login_button_Clicked()
 {
     // Debugging shortcut: Skip login if "debug" is entered
@@ -50,6 +86,7 @@ void MainWindow::on_login_button_Clicked()
         return;
     }
     QJsonObject jsonObj;
+    jsonObj["user_type"] = "internal";
     jsonObj["email"] = ui->email_field->text();
     jsonObj["password"] = ui->password_field->text();
     QJsonDocument jsonDoc(jsonObj);
@@ -122,6 +159,7 @@ void MainWindow::on_app_submit_button_Clicked()
     // TODO: Encapsulate debug skipping in compilation conditionals
     // Debugging shortcut: Skip login if "debug" is entered
     QJsonObject jsonObj;
+    jsonObj["user_type"] = "external";
     jsonObj["fName"] = ui->app_fname_field->text();
     jsonObj["lName"] = ui->app_lname_field->text();
     jsonObj["email"] = ui->app_email_field->text();
@@ -149,10 +187,12 @@ void MainWindow::on_review_application_button_Clicked()
     }
 }
 
-void MainWindow::initStyle()
+void MainWindow::initStyle(QString theme)
 {
     // Load Stylesheet
-    QString resourcePath = ":/resources/style/app.qss";
+    QString resourcePath = ":/resources/style/app-<theme>.qss";
+    resourcePath.replace("<theme>", theme);
+
     if (QFile::exists(resourcePath))
     {
         qDebug() << "Resource exists:" << resourcePath;

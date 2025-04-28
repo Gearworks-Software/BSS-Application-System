@@ -23,6 +23,8 @@ class MainWindow : public QMainWindow
 
 private slots:
 	void on_networkManager_Finished(QNetworkReply *reply);
+	void toggleColorTheme();
+	void openDocumentation();
 	void on_login_button_Clicked();
 	void on_register_applicant_button_Clicked();
 	void on_view_applications_button_Clicked();
@@ -40,6 +42,7 @@ private:
 	QNetworkAccessManager *networkManager;
 	QNetworkReply *networkReply;
 	QString hostIP;
+	QString currentTheme;
 	int hostPort;
 	enum class HTTP_METHOD
 	{
@@ -52,7 +55,7 @@ public:
 	MainWindow(QWidget *parent = nullptr);
 	~MainWindow();  
 	void initFlags();
-	void initStyle();
+	void initStyle(QString theme);
 	void navigateTo(QWidget *toPage);
 	void navigateBack();
 	void initHttpClient(QString hostIP, int hostPort);

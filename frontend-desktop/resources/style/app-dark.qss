@@ -45,9 +45,22 @@ QPushButton:pressed {
     background-color: #133e2a;
 }
 QPushButton#back_button {
-    background-color: #2a2a2a;
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #555555;
 }
-QPushButton#color_theme_switch {
+QPushButton#back_button:hover {
+    background-color: #444444;
+    color: #ffffff;
+    border: 1px solid #777777;
+}
+QPushButton#color_theme_toggle {
+    background: none;
+}
+QPushButton#open_documentation_button {
+    background: none;
+}
+QWidget#quick_menu {
     background: none;
 }
 
