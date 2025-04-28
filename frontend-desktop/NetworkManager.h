@@ -13,6 +13,7 @@ class NetworkManager : QObject
         NetworkManager(QObject *parent, QString host, int port);
         QNetworkReply* get(QString endpoint, QJsonObject *query = nullptr);
         QNetworkReply* post(QString endpoint, QByteArray body, QJsonObject *query = nullptr);
+        QNetworkReply* put(QString endpoint, QByteArray body, QJsonObject *query = nullptr);
         void setHost(QString host);
         void setPort(int port);
 

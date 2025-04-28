@@ -1,0 +1,58 @@
+# Example requests
+
+### Login 
+POST http://localhost:3080/login
+content-type: application/json
+
+{
+    "user_type": "external",
+    "email": "abejess@gmail.com",
+    "password": "JessAbe"
+}
+
+### Update Application
+PUT http://localhost:3080/application
+content-type: application/json
+
+{
+    "application_id": "23",
+    "status": "Accepted",
+}
+
+# ###
+# PUT http://localhost:3080/localhost:3080/application
+# content-type: application/json
+
+# {}
+
+###
+POST http://localhost:3080/register
+content-type: application/json
+
+{
+    "fName": "Kieran", 
+    "lName": "Allen", 
+    "role": "admin", 
+    "email": "arjunsugnani@gearworks.com", 
+    "password": "asgwsw25"
+}
+
+### Create Application
+POST http://localhost:3080/application
+content-type: application/json
+
+{
+    "fName": "Jon",
+    "lName": "Raj",
+    "email": "jraj@test.com",
+    "dateOfBirth": "1970-01-01"
+}
+
+### Get Applications
+GET http://localhost:3080/application
+content-type: application/json
+
+{}
+
+### hello world
+GET http://localhost:3080

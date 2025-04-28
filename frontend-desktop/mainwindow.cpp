@@ -34,6 +34,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->app_submit_button, SIGNAL(clicked()), this, SLOT(on_app_submit_button_Clicked()));
     connect(ui->scan_document_button, SIGNAL(clicked()), this, SLOT(on_scan_document_Clicked()));
 
+    connect(ui->refresh_button, SIGNAL(clicked()), this, SLOT(updateApplicationsList()));
+    connect(ui->review_accept_button, SIGNAL(clicked()), this, SLOT(on_accept_button_Clicked()));
+    connect(ui->review_reject_button, SIGNAL(clicked()), this, SLOT(on_reject_button_Clicked()));
     connect(ui->view_applications_button, SIGNAL(clicked()), this, SLOT(on_view_applications_button_Clicked()));
     connect(ui->review_application_button, SIGNAL(clicked()), this, SLOT(on_review_application_button_Clicked()));
     connect(ui->refresh_camera, SIGNAL(clicked()), this, SLOT(on_refresh_camera_button_Clicked()));
@@ -52,8 +55,10 @@ void MainWindow::initFlags()
 
 void MainWindow::toggleColorTheme()
 {
-    if (currentTheme == "dark") currentTheme = "light";
-    else if (currentTheme == "light") currentTheme = "dark";
+    if (currentTheme == "dark")
+        currentTheme = "light";
+    else if (currentTheme == "light")
+        currentTheme = "dark";
 
     initStyle(currentTheme);
 }
@@ -89,13 +94,31 @@ void MainWindow::on_login_button_Clicked()
         navigateTo(ui->application_page);
         return;
     }
+
     QJsonObject jsonObj;
     jsonObj["user_type"] = "internal";
     jsonObj["email"] = ui->email_field->text();
     jsonObj["password"] = ui->password_field->text();
     QJsonDocument jsonDoc(jsonObj);
     QByteArray data = jsonDoc.toJson();
-    qDebug() << sendHttpRequest(HTTP_METHOD::POST, "/login", data);
+    auto reply = _networkManager->post("/login", data);
+    if (!reply)
+    {
+        QMessageBox::critical(this, "Login Error", "Request timed out or failed.");
+        return;
+    }
+
+    if (reply->error())
+    {
+        QMessageBox::critical(this, "Login Error", reply->readAll());
+    }
+    else
+    {
+        QString response = reply->readAll();
+        qDebug() << "Login successful: " << response;
+        navigateTo(ui->application_page);
+    }
+    reply->deleteLater();
 }
 
 void MainWindow::on_register_applicant_button_Clicked()
@@ -103,19 +126,22 @@ void MainWindow::on_register_applicant_button_Clicked()
     navigateTo(ui->register_applicant_page);
 
     // Ensure the camera is properly initialized and managed
-    if (!camera) {
+    if (!camera)
+    {
         const QList<QCameraDevice> cameras = QMediaDevices::videoInputs();
         for (const QCameraDevice &cameraDevice : cameras)
         {
             qDebug() << cameraDevice.description();
-            if (cameraDevice.description() == "Integrated Camera") {
+            if (cameraDevice.description() == "Integrated Camera")
+            {
                 camera = new QCamera(cameraDevice, this);
                 break;
             }
         }
     }
 
-    if (camera) {
+    if (camera)
+    {
         camera->start(); // Start the camera
         ui->video_widget->show();
         // ui->video_widget->resize(640, 480);
@@ -123,7 +149,9 @@ void MainWindow::on_register_applicant_button_Clicked()
         // Configure the media capture session
         mediaCaptureSession.setCamera(camera);
         mediaCaptureSession.setVideoOutput(ui->video_widget);
-    } else {
+    }
+    else
+    {
         qDebug() << "No camera found or failed to initialize.";
         QMessageBox::warning(this, "Camera Error", "Unable to initialize the camera.");
     }
@@ -131,45 +159,52 @@ void MainWindow::on_register_applicant_button_Clicked()
 void MainWindow::on_scan_document_Clicked()
 {
     // Ensure the camera is active
-    if (!camera || !camera->isActive()) {
+    if (!camera || !camera->isActive())
+    {
         QMessageBox::warning(this, "Camera Error", "Camera is not active.");
         return;
     }
 
     // Initialize QImageCapture if not already done
-    if (!imageCapture) {
+    if (!imageCapture)
+    {
         imageCapture = new QImageCapture(this);
         mediaCaptureSession.setImageCapture(imageCapture);
     }
 
     // Capture the image
-    if (imageCapture->isReadyForCapture()) {
-        connect(imageCapture, &QImageCapture::imageCaptured, this, [this](int id, const QImage &image) {
-            Q_UNUSED(id);
+    if (imageCapture->isReadyForCapture())
+    {
+        connect(imageCapture, &QImageCapture::imageCaptured, this, [this](int id, const QImage &image)
+            {
+                Q_UNUSED(id);
 
-            // Pause the camera
-            if (camera->isActive()) {
-                camera->stop();
-            }
+                // Pause the camera
+                if (camera->isActive())
+                {
+                    camera->stop();
+                }
 
-            // Store the captured image
-            QBuffer buffer(&currentImageData);
-            buffer.open(QIODevice::WriteOnly);
-            image.save(&buffer, "JPEG"); // Save the image to the buffer in JPEG format
+                // Store the captured image
+                QBuffer buffer(&currentImageData);
+                buffer.open(QIODevice::WriteOnly);
+                image.save(&buffer, "JPEG"); // Save the image to the buffer in JPEG format
 
-            // Display the captured image in the video widget
-            QPixmap pixmap = QPixmap::fromImage(image);
-            QLabel *imagePreview = new QLabel(ui->video_widget);
-            imagePreview->setPixmap(pixmap.scaled(ui->video_widget->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
-            imagePreview->setAlignment(Qt::AlignCenter);
-            imagePreview->setStyleSheet("background-color: black;");
-            imagePreview->show();
+                // Display the captured image in the video widget
+                QPixmap pixmap = QPixmap::fromImage(image);
+                QLabel *imagePreview = new QLabel(ui->video_widget);
+                imagePreview->setPixmap(pixmap.scaled(ui->video_widget->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+                imagePreview->setAlignment(Qt::AlignCenter);
+                imagePreview->setStyleSheet("background-color: black;");
+                imagePreview->show();
 
-            // QMessageBox::information(this, "Image Captured", "Image has been captured and displayed.");
-        });
+                // QMessageBox::information(this, "Image Captured", "Image has been captured and displayed.");
+            });
 
         imageCapture->capture();
-    } else {
+    }
+    else
+    {
         QMessageBox::warning(this, "Capture Error", "Image capture is not ready.");
     }
 }
@@ -192,11 +227,11 @@ void MainWindow::updateApplicationsList()
     QString response = _networkManager->get("/application", nullptr)->readAll();
     qDebug() << "Success: " << response;
     QJsonObject json = QJsonDocument::fromJson(response.toUtf8()).object();
-    QJsonArray jsonArray = json["data"].toArray();
+    currentLoadedApplications = json["data"].toArray();
 
-    ui->applications_table->setRowCount(jsonArray.size());
+    ui->applications_table->setRowCount(currentLoadedApplications.size());
     int i = 0;
-    for (const QJsonValue &value : jsonArray)
+    for (const QJsonValue &value : currentLoadedApplications)
     {
         QJsonObject obj = value.toObject();
         int applicationId = obj.contains("application_id") ? obj["application_id"].toInt() : -1;
@@ -218,8 +253,6 @@ void MainWindow::updateApplicationsList()
 
 void MainWindow::on_app_submit_button_Clicked()
 {
-    // TODO: Encapsulate debug skipping in compilation conditionals
-    // Debugging shortcut: Skip login if "debug" is entered
     QJsonObject jsonObj;
     jsonObj["user_type"] = "external";
     jsonObj["fName"] = ui->app_fname_field->text();
@@ -229,25 +262,151 @@ void MainWindow::on_app_submit_button_Clicked()
     jsonObj["document"] = QString::fromLatin1(currentImageData.toBase64());
     QJsonDocument jsonDoc(jsonObj);
     QByteArray data = jsonDoc.toJson();
-    qDebug() << "DATA: " << data;
 
-    QByteArray response = _networkManager->post("/application", data)->readAll();
-    qDebug() << "REPLY FROM HTTP REQUEST: " << response;
+    auto reply = _networkManager->post("/application", data);
+    if (!reply)
+    {
+        QMessageBox::critical(this, "Submission Error", "Request timed out or failed.");
+        return;
+    }
+
+    if (reply->error())
+    {
+        QMessageBox::critical(this, "Submission Error", reply->readAll());
+    }
+    else
+    {
+        QString response = reply->readAll();
+        qDebug() << "Application submitted successfully: " << response;
+        QMessageBox::information(this, "Success!", response);
+    }
+    reply->deleteLater();
 }
 
 void MainWindow::on_review_application_button_Clicked()
 {
-    auto selectedItems = ui->applications_table->selectedItems();
+    QList<QTableWidgetItem *> selectedItems = ui->applications_table->selectedItems();
+    QJsonObject obj;
+    for (const QJsonValue &value : currentLoadedApplications)
+    {
+        obj = value.toObject();
+        if (obj["application_id"].toInt() == selectedItems[0]->text().toInt()) break;
+    }
+
     if (!selectedItems.isEmpty())
     {
-        for (auto item : ui->applications_table->selectedItems())
-        {
-            qDebug() << item->text();
-        }
         navigateTo(ui->review_page);
-        ui->review_fname_field->setText(selectedItems[1]->text());
-        ui->review_lname_field->setText(selectedItems[2]->text());
+        ui->review_fname_field->setText(obj["f_name"].toString());
+        ui->review_lname_field->setText(obj["l_name"].toString());
+        ui->review_email_field->setText(obj["email"].toString());
+
+        // Decode the document_data and display it in the review_document_widget
+        QByteArray imageData = QByteArray::fromBase64(obj["document_data"].toString().toLatin1());/*.toBase64();*/
+        QImage image;
+        // qDebug() << imageData.to;
+        if (image.loadFromData(imageData, "JPEG"))
+        {
+            QPixmap pixmap = QPixmap::fromImage(image);
+            QLabel *imagePreview = new QLabel(ui->review_document_widget);
+            imagePreview->setPixmap(pixmap.scaled(ui->review_document_widget->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+            imagePreview->setAlignment(Qt::AlignCenter);
+            imagePreview->setStyleSheet("background-color: black;");
+            imagePreview->show();
+        }
+        else
+        {
+            qDebug() << "Failed to load image from document_data.";
+        }
     }
+}
+
+void MainWindow::on_accept_button_Clicked()
+{
+    // Post accept request
+    QList<QTableWidgetItem *> selectedItems = ui->applications_table->selectedItems();
+    QJsonObject obj;
+    for (const QJsonValue &value : currentLoadedApplications)
+    {
+        obj = value.toObject();
+        if (obj["application_id"].toInt() == selectedItems[0]->text().toInt()) break;
+    }
+
+    // Post accept request
+    qDebug() << "Accepting application..." << obj["application_id"];
+    QJsonObject jsonObj;
+    jsonObj["application_id"] = obj["application_id"];
+    jsonObj["status"] = "Accepted";
+    QJsonDocument jsonDoc(jsonObj);
+    QByteArray data = jsonDoc.toJson();
+
+    auto reply = _networkManager->put("/application", data);
+    if (!reply)
+    {
+        QMessageBox::critical(this, "Submission Error", "Request timed out or failed.");
+        return;
+    }
+
+    if (reply->error())
+    {
+        QMessageBox::critical(this, "Submission Error", reply->readAll());
+    }
+    else
+    {
+        QString response = reply->readAll();
+        qDebug() << "Application accepted successfully: " << response;
+        QMessageBox::information(this, "", response);
+        navigateBack();
+    }
+    reply->deleteLater();
+}
+
+void MainWindow::on_reject_button_Clicked()
+{
+    // Post accept request
+    QList<QTableWidgetItem *> selectedItems = ui->applications_table->selectedItems();
+    QJsonObject obj;
+    for (const QJsonValue &value : currentLoadedApplications)
+    {
+        obj = value.toObject();
+        if (obj["application_id"].toInt() == selectedItems[0]->text().toInt()) break;
+    }
+
+    // Post accept request
+    qDebug() << "Rejecting application..." << obj["application_id"];
+    QJsonObject jsonObj;
+    jsonObj["application_id"] = obj["application_id"];
+    jsonObj["status"] = "Rejected";
+    QJsonDocument jsonDoc(jsonObj);
+    QByteArray data = jsonDoc.toJson();
+
+    auto reply = _networkManager->put("/application", data);
+    if (!reply)
+    {
+        QMessageBox::critical(this, "Submission Error", "Request timed out or failed.");
+        return;
+    }
+
+    if (reply->error())
+    {
+        QMessageBox::critical(this, "Submission Error", reply->readAll());
+    }
+    else
+    {
+        QString response = reply->readAll();
+        qDebug() << "Application rejected successfully: " << response;
+        QMessageBox::information(this, "Success!", response);
+        navigateBack();
+    }
+    reply->deleteLater();
+}
+
+int MainWindow::getSelectedApplicationId()
+{
+    QList<QTableWidgetItem *> selectedItems = ui->applications_table->selectedItems();
+    if (!selectedItems.isEmpty()) {
+        return selectedItems[0]->text().toInt();
+    }
+    return -1; // Return an invalid ID if no application is selected
 }
 
 void MainWindow::initStyle(QString theme)
@@ -347,31 +506,6 @@ void MainWindow::on_networkManager_Finished(QNetworkReply *reply)
     reply->deleteLater();
 }
 
-QNetworkReply *MainWindow::sendHttpRequest(HTTP_METHOD method, QString endpoint, QByteArray jsonObj)
-{
-    QNetworkRequest networkRequest;
-    QUrl url;
-    url.setScheme("http");
-    url.setHost(hostIP);
-    url.setPort(hostPort);
-    url.setPath(endpoint);
-    qDebug() << "Http request: " << url.toString();
-    networkRequest.setUrl(url);
-    networkRequest.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    switch (method)
-    {
-    case HTTP_METHOD::GET:
-        return networkManager->get(networkRequest);
-        break;
-    case HTTP_METHOD::POST:
-        return networkManager->post(networkRequest, jsonObj);
-        break;
-    default:
-        return nullptr;
-        break;
-    }
-}
-
 void MainWindow::on_back_button_Clicked()
 {
     QWidget *currentPage = navigationStack.top();
@@ -379,18 +513,19 @@ void MainWindow::on_back_button_Clicked()
     if (currentPage == ui->home_page)
     {
         ui->init_stack->setCurrentWidget(ui->login_page);
-    } 
+    }
     else
     {
         navigateBack();
     }
 
-    if (currentPage == ui->register_applicant_page) 
+    if (currentPage == ui->register_applicant_page)
     {
-        if (camera->isActive()) {
+        if (camera->isActive())
+        {
             camera->stop();
             ui->video_widget->hide();
-        }        
+        }
     }
 }
 
@@ -452,13 +587,13 @@ void MainWindow::on_app_page_Changed()
     {
         ui->app_header->setText("Review Application");
     }
-
 }
 void MainWindow::on_refresh_camera_button_Clicked()
 {
     // Check if the camera exists and is not active
-    if (camera && !camera->isActive()) {
-        camera->start(); // Restart the camera
+    if (camera && !camera->isActive())
+    {
+        camera->start();          // Restart the camera
         ui->video_widget->show(); // Ensure the video widget is visible
         qDebug() << "Camera restarted.";
     }

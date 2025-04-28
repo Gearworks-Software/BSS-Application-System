@@ -26,6 +26,22 @@ QNetworkReply *NetworkManager::post(QString endpoint, QByteArray body, QJsonObje
 	return reply;
 }
 
+QNetworkReply *NetworkManager::put(QString endpoint, QByteArray body, QJsonObject *query)
+{
+	QUrl targetUrl = hostUrl;
+	targetUrl.setPath(endpoint);
+
+	QNetworkRequest request(targetUrl);
+	request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+	QNetworkReply *reply = networkAccessManager->put(request, body);
+
+	QEventLoop loop;
+	connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+	loop.exec();
+
+	return reply;
+}
+
 QNetworkReply *NetworkManager::get(QString endpoint, QJsonObject *query)
 {
 	QUrl targetUrl = hostUrl;

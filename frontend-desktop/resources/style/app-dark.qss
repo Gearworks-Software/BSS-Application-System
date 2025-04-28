@@ -54,6 +54,9 @@ QPushButton#back_button:hover {
     color: #ffffff;
     border: 1px solid #777777;
 }
+QPushButton#review_reject_button {
+    background-color: #bb3737
+}
 QPushButton#color_theme_toggle, QPushButton#open_documentation_button, QPushButton#scan_document_button, QPushButton#refresh_camera {
     background: none;
 }
@@ -68,13 +71,13 @@ QLineEdit, QDateEdit {
     background-color: #1e1e1e;
     color: #e0e0e0;
 }
-QLineEdit[readOnly=true] {
+QLineEdit[readOnly=true], QDateEdit[readOnly=true] {
     background-color: 1px solid #424242;
 }
 QLineEdit:focus[readOnly=false], QDateEdit:focus {
     border: 2px solid #02734a;
 }
-QLineEdit:focus[readOnly=true]{
+QLineEdit[readOnly=true], QDateEdit[readOnly=true] {
     border: 2px solid #5a5a5a;
 }
 

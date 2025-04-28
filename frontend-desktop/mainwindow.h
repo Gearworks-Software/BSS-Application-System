@@ -9,6 +9,7 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QtMultimedia>
+#include <QPushButton>
 #include "NetworkManager.h"
 
 QT_BEGIN_NAMESPACE
@@ -34,6 +35,8 @@ private slots:
 	void on_scan_document_Clicked();
 	void on_refresh_camera_button_Clicked();
 	void on_review_application_button_Clicked();
+	void on_accept_button_Clicked();
+	void on_reject_button_Clicked();
 	void on_back_button_Clicked();
 	void on_app_page_Changed();
 
@@ -50,6 +53,7 @@ private:
     QMediaCaptureSession mediaCaptureSession;
 	QImageCapture *imageCapture = nullptr;
 	QByteArray currentImageData;
+	QJsonArray currentLoadedApplications;
 	int hostPort;
 	enum class HTTP_METHOD
 	{
@@ -67,6 +71,7 @@ public:
 	void navigateBack();
 	void initHttpClient(QString hostIP, int hostPort);
 	QNetworkReply *sendHttpRequest(HTTP_METHOD METHOD, QString endpoint, QByteArray jsonObj);
+	int getSelectedApplicationId();
 };
 
 #endif // MAINWINDOW_H

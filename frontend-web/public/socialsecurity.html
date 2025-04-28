@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Security Login</title>
+    <link rel="stylesheet" href="socialsecurity.css">
+</head>
+<body>
+    <div class="login-container">
+        <h1>Social Security Portal</h1>
+        <form id="login-form">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+            <button type="submit">Login</button>
+        </form>
+        <script>
+            document.getElementById('login-form').addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+
+                try {
+                    const loginResponse = await fetch('http://localhost:3080/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            'user_type':"external", 
+                            'email': email, 
+                            'password': password 
+                        })
+                    });
+
+                    if (loginResponse.ok) {
+                        const statusResponse = await fetch('http://localhost:3080/application', {
+                            method: 'GET',
+                            headers: { 'Content-Type': 'application/json' }
+                        });
+
+                        if (statusResponse.ok) {
+                            const statusData = await statusResponse.json();
+                            alert(`Welcome, ${email}! Your application status is: ${statusData.data[0]?.status || 'Unknown'}`);
+                        } else {
+                            alert('Failed to retrieve application status.');
+                        }
+                    } else {
+                        alert('Login failed. Please check your credentials.');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again later.');
+                }
+            });
+        </script>
+    </div>
+</body>
+</html>
