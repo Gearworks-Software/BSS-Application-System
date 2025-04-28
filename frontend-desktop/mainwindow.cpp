@@ -299,6 +299,7 @@ void MainWindow::on_review_application_button_Clicked()
         ui->review_fname_field->setText(obj["f_name"].toString());
         ui->review_lname_field->setText(obj["l_name"].toString());
         ui->review_email_field->setText(obj["email"].toString());
+        ui->review_dob_field->setText(QDateTime::fromString(obj["date_of_birth"].toString(), Qt::ISODate).toTimeZone(QTimeZone("America/Belize")).toString("yyyy-MM-dd"));
 
         // Decode the document_data and display it in the review_document_widget
         QByteArray imageData = QByteArray::fromBase64(obj["document_data"].toString().toLatin1());/*.toBase64();*/
