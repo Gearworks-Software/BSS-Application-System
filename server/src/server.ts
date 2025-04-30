@@ -7,7 +7,7 @@ import router from './routers/apiRouter'
 import 'dotenv/config'
 
 const server = express();
-server.use(express.json());
+server.use(express.json({ limit: "200mb" }));
 
 // Delay requests
 // server.use((req, res, next) => setTimeout(next, 2000))

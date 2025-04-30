@@ -16,7 +16,7 @@ content-type: application/json
 
 {
     "application_id": "23",
-    "status": "Accepted",
+    "status": "Rejected"
 }
 
 # ###
@@ -30,11 +30,12 @@ POST http://localhost:3080/register
 content-type: application/json
 
 {
-    "fName": "Kieran", 
-    "lName": "Allen", 
+    "fName": "Arjun", 
+    "lName": "Sugnani", 
     "role": "admin", 
     "email": "arjunsugnani@gearworks.com", 
-    "password": "asgwsw25"
+    "password": "asgwsw25",
+    "user_type": "internal"
 }
 
 ### Create Application
