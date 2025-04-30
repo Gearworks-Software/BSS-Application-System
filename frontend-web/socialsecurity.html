@@ -43,7 +43,12 @@
 
                         if (statusResponse.ok) {
                             const statusData = await statusResponse.json();
-                            alert(`Welcome, ${email}! Your application status is: ${statusData.data[0]?.status || 'Unknown'}`);
+                            const matchingApplication = statusData.data.find(app => app.email === email);
+                            if (matchingApplication) {
+                                alert(`Welcome, ${email}! Your application status is: ${matchingApplication.status || 'Unknown'}`);
+                            } else {
+                                alert('No application found for the provided email.');
+                            }
                         } else {
                             alert('Failed to retrieve application status.');
                         }
