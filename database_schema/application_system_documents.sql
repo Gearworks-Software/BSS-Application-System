@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `application_system` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `application_system`;
 -- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
 --
 -- Host: 192.168.228.128    Database: application_system
@@ -23,11 +25,11 @@ DROP TABLE IF EXISTS `documents`;
 CREATE TABLE `documents` (
   `document_id` int NOT NULL AUTO_INCREMENT,
   `application_id` int NOT NULL,
-  `document_data` blob NOT NULL,
+  `document_data` mediumblob NOT NULL,
   PRIMARY KEY (`document_id`),
   KEY `application_id_idx` (`application_id`),
   CONSTRAINT `application_id` FOREIGN KEY (`application_id`) REFERENCES `applications` (`application_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

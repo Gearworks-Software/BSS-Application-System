@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `application_system` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `application_system`;
 -- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
 --
 -- Host: 192.168.228.128    Database: application_system
@@ -31,7 +33,7 @@ CREATE TABLE `internal_users` (
   PRIMARY KEY (`user_id`),
   KEY `role` (`role`),
   CONSTRAINT `internal_users_ibfk_1` FOREIGN KEY (`role`) REFERENCES `roles` (`name`) ON DELETE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
